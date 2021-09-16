@@ -4,7 +4,6 @@
 //
 //  Created by Christina Braun on 28.08.21.
 //
-
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
@@ -15,15 +14,10 @@ class UsersViewController: UIViewController {
     private var results = [[String: String]]()
     
     private var hasfetched = false
-    
+        
     private var users = [[String: String]]()
-    
-    private var usersearch = [UserCell]()
-    
-    var userEmail: String?
-    
-//    let searchController = UISearchController(searchResultsController: ResultsVC())
-//    let searchController = UISearchController(searchResultsController: ResultsVC())
+        
+//    var userEmail: String?
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -36,7 +30,6 @@ class UsersViewController: UIViewController {
         table.isHidden = true
         table.register(UserSearchTableViewCell.self,
                        forCellReuseIdentifier: UserSearchTableViewCell.identifier)
-//        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return table
     }()
     
@@ -63,17 +56,7 @@ class UsersViewController: UIViewController {
         searchBar.delegate = self
         navigationController?.navigationBar.topItem?.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "End Search", style: .plain, target: self, action: #selector(dismissSelf))
-        
-//        searchController.searchResultsUpdater = self
-//        navigationItem.searchController = searchController
-        
     }
-//    let name = results[indexPath.row]["username"]!
-//    Database.database().reference().child(name).observeSingleEvent(of: .value, with: {
-//        snapshot in
-//        guard let userEmail = snapshot.value else {
-//            return
-//        } })
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -96,32 +79,11 @@ extension  UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: postTableViewCell.identifier, for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTableViewCell.identifier, for: indexPath) as! UserSearchTableViewCell
-//        cell.textLabel?.text = results[indexPath.row]["username"]
         let name = results[indexPath.row]["username"]!
+        cell.configure(with: name)
         
-//        let model = UserCell(name: "name", userEmail: "userEmail as! String")
-            cell.configure(with: name)
-            
         return cell
-        
-//        DatabaseManager.shared.getDataForSearchedEmail(path: name, completion: { result in
-//                        switch result {
-//                        case .success(let data):
-//                            guard let userData = data as? [String: Any],
-//                                  let email = userData["email"] as? String
-//                            else {
-//                                return
-//                            }
-//            let userEmail = email
-//                        case .failure(let error):
-//                            print("failed to read data with error \(error)")
-//                        }
-//
-//                    })
-//        cell.configure(with: model)
-//        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -143,40 +105,12 @@ extension  UsersViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
 
         })
-//
-//        DatabaseManager.database.child(name).child("email").observeSingleEvent(of: .value, with: {snapshot in
-//            guard let email = snapshot.value as? String else {
-//                return
-//            }
-//            print("email is a string \(email)")
-////            vc.email.text = email
-//            vc.configure(username: name, email: email)
-////            vc.eeemail = email
-//            print("set email text \(vc.email.text)")
-//        })
-        
-        
         
     }
 }
 
 extension  UsersViewController: UISearchBarDelegate {
-    
-//    func updateSearchResults(for searchController: UISearchController) {
-////        guard let text = searchController.searchBar.text else {
-////            return
-////        }
-////        let vc = searchController.searchResultsController as? ResultsVC
-////        vc?.view.backgroundColor = .yellow
-////        print(text)
-//        guard let text = searchController.searchBar.text, !text.isEmpty, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
-//            return
-//        }
-//        searchController.resignFirstResponder()
-//        results.removeAll()
-//
-//        self.searchCountry(query: text)
-//    }
+
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
@@ -220,9 +154,9 @@ extension  UsersViewController: UISearchBarDelegate {
         guard hasfetched else {
             return
         }
-        
+        let selfName = UserDefaults.standard.value(forKey: "username") as! String
         let results: [[String: String]] = self.users.filter({
-            guard let username = $0["username"]?.lowercased(), username != UserDefaults.standard.value(forKey: "username") as! String else {
+            guard let username = $0["username"]?.lowercased(), username != selfName else {
                 return false
             }
             
@@ -246,5 +180,3 @@ extension  UsersViewController: UISearchBarDelegate {
         }
     }
 }
-
-

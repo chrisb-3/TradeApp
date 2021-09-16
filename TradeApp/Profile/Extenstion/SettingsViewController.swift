@@ -11,7 +11,7 @@ import FirebaseAuth
 
 struct SettingCellModel {
     let title: String
-    let handler: (()-> Void) // Void means it doesn't return a value
+    let handler: (()-> Void)
 }
 
 /// shows user settings
@@ -84,8 +84,6 @@ final class SettingsViewController: UIViewController {
                                                 }
                                                 UserDefaults.standard.set(nil, forKey: "email")
                                                 UserDefaults.standard.set(nil, forKey: "username")
-                                                let email =  UserDefaults.standard.value(forKey: "email") as? String
-                                                print(email)
                                                 AuthManager.shared.logOut(completion: { success in
                                                     DispatchQueue.main.async {
                                                         if success {
@@ -98,9 +96,7 @@ final class SettingsViewController: UIViewController {
                                                             print("could not log out user")
                                                         }
                                                     }
-                                                    
                                                 })
-                                                
                                             }))
         present(actionSheet, animated: true)
     }
@@ -113,7 +109,9 @@ final class SettingsViewController: UIViewController {
     }
     
     private func didTapAppInfo() {
-
+        let vc = AppInfoViewController()
+        vc.title = "App information"
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func didTapEditWishlist() {

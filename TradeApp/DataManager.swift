@@ -23,38 +23,16 @@ final class DatabaseManager {
 
 }
 extension DatabaseManager {
-//    public func getDataForSearchedEmail (path: String, completion: @escaping(Result <Any, Error>) -> Void) {
-//        DatabaseManager.database.child(path).observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            guard let value = snapshot.value else {
-//                completion(.failure(DatabaseError.failedToGetUserName))
-//                return
-//            }
-//            completion(.success(value))
-//        })
-//    }
     public func getAllUsers(completion: @escaping (Result<[[String: String]],Error>) -> Void) {
         DatabaseManager.database.child("users").observeSingleEvent(of: .value, with: {snapshot in
             guard let value = snapshot.value as? [[String: String]] else {
                 completion(.failure(DatabaseError.failedToFetch))
                 return
             }
-            completion(.success(value))
+            completion(.success(value)) 
         })
     }
     
-//    public func getAllChatUsers(completion: @escaping (Result<[[String: String]],Error>) -> Void) {
-//        DatabaseManager.database.child("users").observeSingleEvent(of: .value, with: {snapshot in
-//            guard let value = snapshot.value as? [[String: String]] else {
-//                completion(.failure(DatabaseError.failedToFetch))
-//                return
-//            }
-//            guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-//                return
-//            }
-//            completion(.success(value))
-//        })
-//    }
     
     private func finishCreatingConversation(username: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         
@@ -341,7 +319,7 @@ extension DatabaseManager {
             
         })
         
-        DatabaseManager.database.child("unsernames").child(user.userName).setValue([
+        DatabaseManager.database.child("usernames").child(user.userName).setValue([
                                                 "email": user.safeEmail
         ]
         )
@@ -655,6 +633,14 @@ public func storePostDataToFirebase(with data: Data,
         
         })
         })
+    guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+        return
+    }
+    let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
+    
+    DatabaseManager.database.child("Emails").child(safeEmail).child("wishes").child(exchangeWish).setValue(postImageNSUUID)
+    DatabaseManager.database.child("Emails").child(safeEmail).child("has").child(articleType).setValue(postImageNSUUID)
+    
     }
         
             public func createNewConvo( otherEmail: String,

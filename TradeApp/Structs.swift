@@ -8,8 +8,8 @@
 import Foundation
 import MessageKit
 import UIKit
-
-
+import Foundation
+import FirebaseAuth
 
 struct AppUser {
     let userName: String
@@ -21,8 +21,53 @@ struct AppUser {
         return safeEmail
     }
     var profilePictureFileName: String {
-        //images/christina-gmeil-com_profile_picture.png
         return "\(safeEmail)_profile_picture.png"
+    }
+}
+
+struct Buttons {
+    let backgroundImage: UIImage
+    let buttonLabel: String
+    let handler: (()-> Void)
+    let action: Selector
+}
+
+struct UserCell {
+    let name: String
+    let userEmail: String
+}
+
+struct ArticleButtons {
+    let backgroundColor: UIColor
+    let textColor: UIColor
+    let buttonLabel: String
+    let handler: (()-> Void)
+    let action: Selector
+}
+
+struct StateButtons {
+    let backgroundColor: UIColor
+    let textColor: UIColor
+    let buttonLabel: String
+    let handler: (()-> Void)
+    let action: Selector
+}
+
+public class AuthManager {
+    
+    static let shared = AuthManager()
+    
+    public func logOut(completion: (Bool) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completion(true)
+            return
+        }
+        catch{
+            print(error)
+            completion(false)
+            return
+        }
     }
 }
 
@@ -31,20 +76,43 @@ public enum DatabaseError: Error {
     case failedToGetUserName
 }
 
-struct Post {
-   let username: String
-   let productTitle: String
-    let inExchange: String
-    let gender: String
-   let city: String
-   let country: String
-   let size: String
-   let color: String
-   let productState: String
-    let articelType: String
-    let aditionalInfo: String
-}
+class Recomand {
+    
+//    var selfId: String!
+//    var otherId: String!
+//    var poster_emial: String!
+//    
+//    init(selfId: String!, otherId: String!, dictionary: Dictionary<String,AnyObject>) {
+//        if let poster_emial = dictionary["poster_emial"] as? String {
+//            self.poster_emial = poster_emial
+//        }
+//        
+//    }
+    
+    var selfId: String!
+    var otherId: String!
+    
+    var imageId1: String!
+    var imageId2: String!
+    var poster_emial: String!
+    
+    init(selfId: String!, otherId: String!, dictionary1: Dictionary<String,AnyObject>, dictionary2: Dictionary<String,AnyObject>) {
+    
+        self.selfId = selfId
 
+        self.otherId = otherId
+        
+        if let imageId1 = dictionary1["postImageNSUUID"] as? String {
+            self.imageId1 = imageId1
+        }
+        if let imageId2 = dictionary2["postImageNSUUID"] as? String {
+            self.imageId2 = imageId2
+        }
+        if let poster_emial = dictionary1["poster_emial"] as? String {
+            self.poster_emial = poster_emial
+        }
+    }
+}
 class PostInfo {
     
     var articleType: String!
@@ -58,8 +126,7 @@ class PostInfo {
     var  size: String!
     var exchangeWish: String!
     var  gender: String!
-
-    var imageUrl: URL!
+    
     
     var postId: String!
     
@@ -100,9 +167,9 @@ class PostInfo {
         if let size = dictionary["size"] as? String {
             self.size = size
         }
-        if let imageUrl = dictionary["imageUrl"] as? URL {
-            self.imageUrl = imageUrl
-        }
+//        if let imageUrl = dictionary["imageUrl"] as? URL {
+//            self.imageUrl = imageUrl
+//        }
         if let postImageNSUUID = dictionary["postImageNSUUID"] as? String {
             self.postImageNSUUID = postImageNSUUID
         }
@@ -117,6 +184,7 @@ class PostInfo {
     }
 }
 
+
 class Convo {
     
     var id: String!
@@ -126,7 +194,6 @@ class Convo {
     var otherImage: String!
     var selfImage: String!
     var latestMessage: String!
-//    var imageUrl: URL!
     
     init(id: String!, dictionary: Dictionary<String,AnyObject>) {
     
@@ -152,41 +219,4 @@ class Convo {
             self.latestMessage = latestMessage
         }
     }
-}
-
-
-
-struct User {
-    let username: String
-//    let bio: String
-    let profilePhoto: UIImage//URL
-    let gender: Gender
-    let email: String
-//    let postNumber: Int
-    let points: Int
-    let soltPosts: Int
-    let userQuote: String
-    let location: String
-}
-
-struct PostDescription {
-    let productTitle: String
-    let transactionType: String  //transactionType
-//    let price: String?
-    let city: String
-    let articleType: String
-    let gender: String
-    let country: String
-    let size: String
-    let color: String
-    let productState: String?
-    let exchangeWish: String?
-    let aditionalInformation: String?
-    
-}
-
-
-
-enum Gender {
-    case male, female, other, any
 }

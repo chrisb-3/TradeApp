@@ -8,13 +8,6 @@
 
 import UIKit
 
-struct StateButtons {
-    let backgroundColor: UIColor
-    let textColor: UIColor
-    let buttonLabel: String
-    let handler: (()-> Void)
-    let action: Selector
-}
 
 class StateViewController: UIViewController {
     
@@ -25,29 +18,29 @@ class StateViewController: UIViewController {
         return tableView
     }()
     
-    public var stateButtons = [StateButtons]()
+    public var stateButtons = [ArticleButtons]()
     
-    private func createButtonArray() -> [StateButtons] {
+    private func createButtonArray() -> [ArticleButtons] {
         
-        var stateButtons: [StateButtons] = []
+        var stateButtons: [ArticleButtons] = []
         
     
-        let b1 = StateButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "good", handler:{[weak self] in
+        let b1 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "good", handler:{[weak self] in
             self?.didTapGood()
         }, action: #selector(didTapGood))
-        let b2 = StateButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "bad", handler:{[weak self] in
+        let b2 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "bad", handler:{[weak self] in
             self?.didTapBad()
         }, action: #selector(didTapBad))
-        let b3 = StateButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "new", handler:{[weak self] in
+        let b3 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "new", handler:{[weak self] in
             self?.didTapNew()
         }, action: #selector(didTapNew))
-        let b4 = StateButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "old", handler:{[weak self] in
+        let b4 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "old", handler:{[weak self] in
             self?.didTapOld()
         }, action: #selector(didTapOld))
-        let b5 = StateButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "used", handler:{[weak self] in
+        let b5 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "used", handler:{[weak self] in
             self?.didTapUsed()
         }, action: #selector(didTapUsed))
-        let b6 = StateButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "very goog shape", handler:{[weak self] in
+        let b6 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "very goog shape", handler:{[weak self] in
             self?.didTapVeryGoodShape()
         }, action: #selector(didTapVeryGoodShape))
         

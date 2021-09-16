@@ -14,16 +14,7 @@ import JGProgressHUD
 class RegistrationViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .light)
-    
-//    private let scrollView: UIScrollView = {
-//        let scrollView = UIScrollView()
-//        scrollView.clipsToBounds = true
-//        return scrollView
-//    }()
-    
-    let scrollView = UIScrollView()
-    let contentView = UIView()
-    
+        
     private let userProfileImage: UIImageView = {
         let image = UIImageView()
         image.image =  UIImage(systemName: "person.circle")
@@ -99,35 +90,14 @@ class RegistrationViewController: UIViewController {
         button.layer.cornerRadius = 12
         return button
     }()
-    
-    func setupScrollView() {
-    
-            view.addSubview(scrollView)
-            scrollView.addSubview(contentView)
-        scrollView.clipsToBounds = true
-        scrollView.frame = view.bounds
-        }
-    
-    
-    func setupViews(){
-        contentView.clipsToBounds = true
-            contentView.addSubview(userProfileImage)
-       
-        contentView.addSubview(choosePhotoLabel)
-       
-        contentView.addSubview(userNameField)
-       
-        contentView.addSubview(emailField)
-      
-        
-        contentView.addSubview(passwordTextField)
-        }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupScrollView()
-        setupViews()
+        view.clipsToBounds = true
+        view.frame = view.bounds
+        
         
         UserDefaults.standard.set(nil, forKey: "email") // save users email adress
         UserDefaults.standard.set(nil, forKey: "username")
@@ -147,7 +117,6 @@ class RegistrationViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         userProfileImage.isUserInteractionEnabled = true
-        scrollView.isUserInteractionEnabled = true
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddProfilePicture))
         
@@ -157,18 +126,13 @@ class RegistrationViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        scrollView.frame = view.bounds
-        let size = scrollView.width/2
         let fieldWidth = view.width-50
         
         userProfileImage.frame = CGRect(
-//            x: view.width/2-100,
             x:view.width/2-(view.width/2.5)/2,
-            y: 7,
+            y: view.height/10+5,
             width: view.width/2.5,
             height: view.width/2.5)
-//            width: size,
-//            height: size)
         userProfileImage.layer.cornerRadius = userProfileImage.height/2
         
         choosePhotoLabel.frame = CGRect(
@@ -199,15 +163,13 @@ class RegistrationViewController: UIViewController {
     }
     
     
-    private func addSubviews() {
-        view.addSubview(scrollView)
-        
-        scrollView.addSubview(userProfileImage)
-        scrollView.addSubview(choosePhotoLabel)
-        scrollView.addSubview(userNameField)
-        scrollView.addSubview(emailField)
-        scrollView.addSubview(passwordTextField)
-        scrollView.addSubview(registrationButton)
+    private func addSubviews() {        
+        view.addSubview(userProfileImage)
+        view.addSubview(choosePhotoLabel)
+        view.addSubview(userNameField)
+        view.addSubview(emailField)
+        view.addSubview(passwordTextField)
+        view.addSubview(registrationButton)
     }
     
     @objc private func didTapRegistrationButton() {
@@ -254,7 +216,7 @@ class RegistrationViewController: UIViewController {
 
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult,error in // the user gets registerd with an email and a password
             // data inserted into firebase Authentications
-            guard let authRes = authResult, error == nil else {
+            guard error == nil else {
                 let alert = UIAlertController(title: "registration Error", message: "email is already used or incorrect", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
                 strongSelf.present(alert, animated: true)
@@ -290,12 +252,7 @@ class RegistrationViewController: UIViewController {
 
                 }
             })
-
-
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)//database entery
-
-            let user = authRes.user
-            print("created user: \(user)")
+        
 
             UserDefaults.standard.set(email, forKey: "email") // save users email adress
             UserDefaults.standard.set(username, forKey: "username")
@@ -313,13 +270,23 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc func didTapAddProfilePicture() {
-        presentPhotoActionSheet()
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "select a profile Image", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                            style: .cancel,
+                                            handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Choose Photo",
+                                            style: .default,
+                                            handler: { [weak self] _ in
+                                                self?.choosePhoto()
+                                            }))
+    present(actionSheet, animated: true)
+        
     }
     
     var imagePickerController = UIImagePickerController()
 }
 
-extension RegistrationViewController: UITextFieldDelegate { // when return button is pressed
+extension RegistrationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == userNameField {
@@ -340,19 +307,6 @@ extension RegistrationViewController: UITextFieldDelegate { // when return butto
 
 extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    
-    func presentPhotoActionSheet() {
-        let actionSheet = UIAlertController(title: "Profile Picture", message: "select a profile Image", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Cancel",
-                                            style: .cancel,
-                                            handler: nil))
-        actionSheet.addAction(UIAlertAction(title: "Choose Photo",
-                                            style: .default,
-                                            handler: { [weak self] _ in
-                                                self?.choosePhoto()
-                                            }))
-    present(actionSheet, animated: true)
-}
     func choosePhoto() {
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
@@ -369,11 +323,12 @@ extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigat
             return
         }
         self.userProfileImage.image = selectedImage
-        choosePhotoLabel.setTitle("eddit profile image", for: .normal)
+        choosePhotoLabel.setTitle("edit profile image", for: .normal)
     }
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { // when cancell is clicked
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { // when cancel is clicked
         picker.dismiss(animated: true, completion: nil)
     }
+    
     
 }

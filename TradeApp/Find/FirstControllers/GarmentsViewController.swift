@@ -22,14 +22,6 @@ class GarmentsViewController: UIViewController {
         private func createButtonArray() -> [ArticleButtons] {
             
             var findButtons: [ArticleButtons] = []
-    //        let jeans = UIImage(named: "jeans")!
-    //        let Tshirt = UIImage(named: "tshirt")!
-    //        let shirts = UIImage(named: "shirt")!
-    //        let dress = UIImage(named: "dress")!
-    //        let skirt = UIImage(named: "skirt")!
-    //        let coat = UIImage(named: "coat")!
-    //        let jacket = UIImage(named: "jacket")!
-
             let b1 = ArticleButtons(backgroundColor: .systemYellow, textColor: .white , buttonLabel: "jeans", handler: {[weak self] in
                 self?.didTapjeans()
             },action: #selector(didTapjeans))

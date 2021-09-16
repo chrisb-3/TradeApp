@@ -7,15 +7,6 @@
 
 import UIKit
 
-struct Buttons {
-    let backgroundImage: UIImage
-    let buttonLabel: String
-    let handler: (()-> Void)
-    let action: Selector
-}
-
-
-
 
 class FindViewController: UIViewController {
     
@@ -24,9 +15,6 @@ class FindViewController: UIViewController {
         tableView.register(FindTableViewCell.self, forCellReuseIdentifier: FindTableViewCell.identifier)
         return tableView
     }()
-    
-    
-      
     
     public var buttons = [Buttons]()
     
@@ -41,33 +29,40 @@ class FindViewController: UIViewController {
         let red = UIImage(named: "red")!
         let gray = UIImage(named: "gray")!
         let users = UIImage(named: "people")!
+        
+        let garments = UIImage(named: "Bildschirmfoto 2021-09-08 um 11.10.42")!
+        let gender = UIImage(named: "Bildschirmfoto 2021-09-08 um 11.37.30")!
+        let color = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.39.49")!
+        let itemState = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.35.19")!
+        let usersImage = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.30.10")!
+        let all = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.51.58")!
 
-        let b1 = Buttons(backgroundImage: yellow, buttonLabel: "Garments",
+        let b1 = Buttons(backgroundImage: garments, buttonLabel: "Garments",
                          handler: {[weak self] in
             self?.didTapGarments()
         }, action: #selector(didTapGarments))
         
-        let b2 = Buttons(backgroundImage: blue, buttonLabel: "Gender"
+        let b2 = Buttons(backgroundImage: gender, buttonLabel: "Gender"
                          , handler: {[weak self] in
             self?.didTapGender()
         }, action: #selector(didTapGender))
         
-        let b3 = Buttons(backgroundImage: pink, buttonLabel: "Color"
+        let b3 = Buttons(backgroundImage: color, buttonLabel: "Color"
                          , handler: {[weak self] in
             self?.didTapColor()
         }, action: #selector(didTapColor))
 
-        let b4 = Buttons(backgroundImage: red, buttonLabel: "Item State"
+        let b4 = Buttons(backgroundImage: itemState, buttonLabel: "Item State"
                          , handler: {[weak self] in
             self?.didTapItemState()
         }, action: #selector(didTapItemState))
 
-        let b5 = Buttons(backgroundImage: users, buttonLabel: "Users",
+        let b5 = Buttons(backgroundImage: usersImage, buttonLabel: "Users",
                          handler: {[weak self] in
             self?.didTapUsers()
         }, action: #selector(didTapUsers))
         
-        let b6 = Buttons(backgroundImage: brown, buttonLabel: "See all"
+        let b6 = Buttons(backgroundImage: all, buttonLabel: "See all"
                          , handler: {[weak self] in
             self?.didTapAll()
         }, action: #selector(didTapAll))
@@ -87,7 +82,6 @@ class FindViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Find"
-//        configureNavigationBar()
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -141,9 +135,6 @@ class FindViewController: UIViewController {
         
     }
     
-
-    
-    
 }
 
 extension FindViewController: UITableViewDelegate, UITableViewDataSource {
@@ -173,12 +164,10 @@ extension FindViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension FindViewController: FindTableViewCellDelegate {
-   
     
     
     func FindViewDidTapUsers(_: FindTableViewCell) {
         let vc = UsersViewController()
-        vc.title = "Search Results"
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .fullScreen
         navigationController?.present(navVC, animated: true)

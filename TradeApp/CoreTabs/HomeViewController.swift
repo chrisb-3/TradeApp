@@ -10,11 +10,10 @@ import UIKit
 import UIKit
 import FirebaseAuth
 
-struct postStruct {
-    let title : String!
-    let message : String!
-}
-
+//struct postStruct {
+//    let title : String!
+//    let message : String!
+//}
 
 class HomeViewController: UIViewController {
     
@@ -28,19 +27,20 @@ class HomeViewController: UIViewController {
         return table
     }()
     
-    private let noPostsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "No posts yet"
-        label.textAlignment = .center
-        label.textColor = .gray
-        label.font = .systemFont(ofSize: 21, weight: .medium)
-        label.isHidden = true
-        return label
-    }()
+//    private let noPostsLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "No posts yet"
+//        label.textAlignment = .center
+//        label.textColor = .gray
+//        label.font = .systemFont(ofSize: 21, weight: .medium)
+//        label.isHidden = true
+//        return label
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         validateAuth()
+        configureNavigationBar()
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -52,10 +52,10 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
         
-        noPostsLabel.frame = CGRect(x: 10,
-                                            y: (view.height-100)/2,
-                                            width: view.width-20,
-                                            height: 100)
+//        noPostsLabel.frame = CGRect(x: 10,
+//                                            y: (view.height-100)/2,
+//                                            width: view.width-20,
+//                                            height: 100)
     }
     
 //    check if the user is singed in, If yes show this screen. If no -> go to Login screen
@@ -72,6 +72,18 @@ class HomeViewController: UIViewController {
                 present(nav, animated: true)
             }
         }
+    
+    private func configureNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "squareshape.controlhandles.on.squareshape.controlhandles"),
+                                                            style: .done ,
+                                                            target: self,
+                                                            action: #selector(didTapRecomandation))
+    }
+    @objc private func didTapRecomandation() {
+        let vc = RecomandationViewController()
+        vc.title = "Recmandation"
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     func fetchAllPosts() {
         

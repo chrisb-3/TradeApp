@@ -60,13 +60,9 @@ class EditWishlistViewController: UIViewController {
             }
             field.text = listResult
         })
-        
-        
-        
             return field
         }()
 
-    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: EmptyTableViewCell.identifier)
@@ -99,18 +95,14 @@ class EditWishlistViewController: UIViewController {
 
         ///text fields
         descriptiontextFields.addSubview(wishField)
-       
-
-        wishField.delegate = self
         wishField.layer.masksToBounds = true
         wishField.layer.borderWidth = 1
         wishField.layer.borderColor = UIColor.black.cgColor
         wishField.frame = CGRect(x: 20,
-                                    y: 0,
-                                    width: view.width-50,
-                                    height: view.height/1.5)
+                                 y: 0,
+                                 width: view.width-50,
+                                 height: view.height/1.5)
         wishField.font = .systemFont(ofSize: 20, weight: .regular)
-       
         return descriptiontextFields
     }
     
@@ -152,6 +144,3 @@ extension EditWishlistViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension EditWishlistViewController: UITextFieldDelegate, UITextViewDelegate {
-    
-}

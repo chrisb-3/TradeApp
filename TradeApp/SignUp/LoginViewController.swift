@@ -16,8 +16,6 @@ class LoginViewController: UIViewController {
     private let emailTextField: UITextField = {
         let field = UITextField()
         field.placeholder = "Email"
-//        let placeholderColor = NSAttributedString(string: "placeholder", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue])
-//        field.attributedPlaceholder = placeholderColor
         field.returnKeyType = .next
         field.leftViewMode = .always
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -53,6 +51,9 @@ class LoginViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.layer.backgroundColor = UIColor.systemBlue.cgColor
         button.layer.cornerRadius = 12
+        button.addTarget(self,
+                              action: #selector(didTapLoginButton),
+                              for: .touchUpInside)
         return button
     }()
 
@@ -60,18 +61,15 @@ class LoginViewController: UIViewController {
         let button = UIButton()
         button.setTitleColor(.label, for: .normal)
         button.setTitle("Create an Account", for: .normal)
+        button.addTarget(self,
+                                            action: #selector(didTapNewUserRegistrationButton),
+                                            for: .touchUpInside)
         return button
     }()
 
     private let headerView: UIView = {
         let header = UIView()
         header.clipsToBounds = true
-//        let backgroundImgeView = UIImageView (image: UIImage(named: "Logo"))
-//        header.addSubview(backgroundImgeView)
-//        backgroundImgeView.clipsToBounds = true
-//        header.backgroundColor = .blue
-        
-        
         return header
     }()
     
@@ -85,13 +83,6 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loginButton.addTarget(self,
-                              action: #selector(didTapLoginButton),
-                              for: .touchUpInside)
-        newUserRegistrationButton.addTarget(self,
-                                            action: #selector(didTapNewUserRegistrationButton),
-                                            for: .touchUpInside)
         
         emailTextField.delegate = self
         passwordTextField.delegate = self

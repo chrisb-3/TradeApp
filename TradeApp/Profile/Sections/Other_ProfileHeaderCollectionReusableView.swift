@@ -32,29 +32,8 @@ class Other_ProfileHeaderCollectionReusableView: UICollectionReusableView {
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.backgroundColor = .systemGray
-//
         return image
     }()
-//    var email: String? {
-//        didSet{
-//            guard let mail = email else {
-//                return
-//            }
-//            let path = "images/\(mail)_profile_picture.png"
-//                    StorageManager.shared.downloadURL(for: path, completion: { result in
-//                        switch result {
-//                        case .success(let url):
-//
-//                        DispatchQueue.main.async {
-//                            self.prfImage.sd_setImage(with: url)
-//                        }
-//                        case .failure(let error):
-//                        print("failed to get url: \(error)")
-//                        }
-//                    })
-//        }
-//    }
-//
     var emailString: String? {
 
         didSet {

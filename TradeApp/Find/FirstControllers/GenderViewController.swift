@@ -7,14 +7,6 @@
 
 import UIKit
 
-struct ArticleButtons {
-    let backgroundColor: UIColor
-    let textColor: UIColor
-    let buttonLabel: String
-    let handler: (()-> Void)
-    let action: Selector
-}
-
 class GenderViewController: UIViewController {
 
     private let tableView: UITableView = {

@@ -10,13 +10,10 @@
 		7F62BBC331799D30D56A5F67 /* Pods_TradeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E00815782E901F77AE2F3B /* Pods_TradeApp.framework */; };
 		F03790E426DB038100A45E57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03790E326DB038100A45E57 /* AppDelegate.swift */; };
 		F037913926DB052200A45E57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F03790F726DB051500A45E57 /* GoogleService-Info.plist */; };
-		F037913A26DB052200A45E57 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03790F826DB051700A45E57 /* AuthManager.swift */; };
-		F037913B26DB052200A45E57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03790F926DB051700A45E57 /* SceneDelegate.swift */; };
 		F037913C26DB052200A45E57 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03790FA26DB051900A45E57 /* Size.swift */; };
 		F037913D26DB052200A45E57 /* postTableViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03790FE26DB051C00A45E57 /* postTableViewCellTableViewCell.swift */; };
 		F037913E26DB052200A45E57 /* descriptionTableViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03790FF26DB051C00A45E57 /* descriptionTableViewCellTableViewCell.swift */; };
 		F037913F26DB052200A45E57 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037910226DB051C00A45E57 /* ChatViewController.swift */; };
-		F037914026DB052200A45E57 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037910326DB051C00A45E57 /* NewConversationViewController.swift */; };
 		F037914126DB052200A45E57 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037910426DB051C00A45E57 /* ConversationTableViewCell.swift */; };
 		F037914226DB052200A45E57 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037910526DB051C00A45E57 /* HomeViewController.swift */; };
 		F037914326DB052200A45E57 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037910826DB051C00A45E57 /* ProfileHeaderCollectionReusableView.swift */; };
@@ -41,7 +38,6 @@
 		F037915626DB052200A45E57 /* GarmentsResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912026DB051C00A45E57 /* GarmentsResultViewController.swift */; };
 		F037915726DB052200A45E57 /* StateResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912126DB051C00A45E57 /* StateResultViewController.swift */; };
 		F037915826DB052200A45E57 /* GenderResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912226DB051C00A45E57 /* GenderResultViewController.swift */; };
-		F037915926DB052200A45E57 /* AllViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912326DB051C00A45E57 /* AllViewViewController.swift */; };
 		F037915A26DB052200A45E57 /* StateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912426DB051C00A45E57 /* StateViewController.swift */; };
 		F037915B26DB052200A45E57 /* ColorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912526DB051C00A45E57 /* ColorsViewController.swift */; };
 		F037915C26DB052200A45E57 /* GarmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037912626DB051C00A45E57 /* GarmentsViewController.swift */; };
@@ -59,6 +55,12 @@
 		F037916C26DB052200A45E57 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037913826DB052200A45E57 /* DataManager.swift */; };
 		F037916E26DB0A0C00A45E57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F037916D26DB0A0C00A45E57 /* Assets.xcassets */; };
 		F037917026DC20D200A45E57 /* SelfHeaderProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037916F26DC20D200A45E57 /* SelfHeaderProfileCollectionReusableView.swift */; };
+		F08A59D326EF8FB7001148FB /* RecomandationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08A59D226EF8FB7001148FB /* RecomandationViewController.swift */; };
+		F08A59D526EF9007001148FB /* RecomandationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08A59D426EF9007001148FB /* RecomandationTableViewCell.swift */; };
+		F08A59D726F27E2C001148FB /* ExtraRecomendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08A59D626F27E2C001148FB /* ExtraRecomendTableViewCell.swift */; };
+		F08A59D926F2801E001148FB /* ExtraRecomandationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08A59D826F2801E001148FB /* ExtraRecomandationsViewController.swift */; };
+		F0A7890526DEB82B0085BA1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A7890426DEB82B0085BA1A /* SceneDelegate.swift */; };
+		F0F8B00E26E6ADB800A2ED97 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8B00D26E6ADB800A2ED97 /* AppInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,13 +70,10 @@
 		F03790E026DB038100A45E57 /* TradeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TradeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03790E326DB038100A45E57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F03790F726DB051500A45E57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F03790F826DB051700A45E57 /* AuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
-		F03790F926DB051700A45E57 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = ../../TraideOro/TraideOro/SceneDelegate.swift; sourceTree = "<group>"; };
 		F03790FA26DB051900A45E57 /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F03790FE26DB051C00A45E57 /* postTableViewCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postTableViewCellTableViewCell.swift; sourceTree = "<group>"; };
 		F03790FF26DB051C00A45E57 /* descriptionTableViewCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = descriptionTableViewCellTableViewCell.swift; sourceTree = "<group>"; };
 		F037910226DB051C00A45E57 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		F037910326DB051C00A45E57 /* NewConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		F037910426DB051C00A45E57 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		F037910526DB051C00A45E57 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F037910826DB051C00A45E57 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -99,7 +98,6 @@
 		F037912026DB051C00A45E57 /* GarmentsResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarmentsResultViewController.swift; sourceTree = "<group>"; };
 		F037912126DB051C00A45E57 /* StateResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateResultViewController.swift; sourceTree = "<group>"; };
 		F037912226DB051C00A45E57 /* GenderResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderResultViewController.swift; sourceTree = "<group>"; };
-		F037912326DB051C00A45E57 /* AllViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllViewViewController.swift; sourceTree = "<group>"; };
 		F037912426DB051C00A45E57 /* StateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateViewController.swift; sourceTree = "<group>"; };
 		F037912526DB051C00A45E57 /* ColorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsViewController.swift; sourceTree = "<group>"; };
 		F037912626DB051C00A45E57 /* GarmentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GarmentsViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +115,12 @@
 		F037913826DB052200A45E57 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F037916D26DB0A0C00A45E57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F037916F26DC20D200A45E57 /* SelfHeaderProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfHeaderProfileCollectionReusableView.swift; sourceTree = "<group>"; };
+		F08A59D226EF8FB7001148FB /* RecomandationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomandationViewController.swift; sourceTree = "<group>"; };
+		F08A59D426EF9007001148FB /* RecomandationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomandationTableViewCell.swift; sourceTree = "<group>"; };
+		F08A59D626F27E2C001148FB /* ExtraRecomendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraRecomendTableViewCell.swift; sourceTree = "<group>"; };
+		F08A59D826F2801E001148FB /* ExtraRecomandationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraRecomandationsViewController.swift; sourceTree = "<group>"; };
+		F0A7890426DEB82B0085BA1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F0F8B00D26E6ADB800A2ED97 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +174,11 @@
 			isa = PBXGroup;
 			children = (
 				F03790E326DB038100A45E57 /* AppDelegate.swift */,
+				F0A7890426DEB82B0085BA1A /* SceneDelegate.swift */,
+				F03790F726DB051500A45E57 /* GoogleService-Info.plist */,
+				F037913826DB052200A45E57 /* DataManager.swift */,
 				F03790FA26DB051900A45E57 /* Size.swift */,
+				F037913526DB052000A45E57 /* Structs.swift */,
 				F037910026DB051C00A45E57 /* CoreTabs */,
 				F037910626DB051C00A45E57 /* Profile */,
 				F037911326DB051C00A45E57 /* Find */,
@@ -178,12 +186,10 @@
 				F03790FD26DB051C00A45E57 /* ClickOnePostView */,
 				F03790FC26DB051C00A45E57 /* SignUp */,
 				F03790FB26DB051C00A45E57 /* Storyboard */,
-				F037913526DB052000A45E57 /* Structs.swift */,
-				F03790F826DB051700A45E57 /* AuthManager.swift */,
-				F037913426DB051E00A45E57 /* ClickOnePostViewController.swift */,
-				F037913826DB052200A45E57 /* DataManager.swift */,
-				F03790F726DB051500A45E57 /* GoogleService-Info.plist */,
-				F03790F926DB051700A45E57 /* SceneDelegate.swift */,
+				F08A59D226EF8FB7001148FB /* RecomandationViewController.swift */,
+				F08A59D426EF9007001148FB /* RecomandationTableViewCell.swift */,
+				F08A59D626F27E2C001148FB /* ExtraRecomendTableViewCell.swift */,
+				F08A59D826F2801E001148FB /* ExtraRecomandationsViewController.swift */,
 			);
 			path = TradeApp;
 			sourceTree = "<group>";
@@ -210,6 +216,7 @@
 		F03790FD26DB051C00A45E57 /* ClickOnePostView */ = {
 			isa = PBXGroup;
 			children = (
+				F037913426DB051E00A45E57 /* ClickOnePostViewController.swift */,
 				F03790FE26DB051C00A45E57 /* postTableViewCellTableViewCell.swift */,
 				F03790FF26DB051C00A45E57 /* descriptionTableViewCellTableViewCell.swift */,
 				F037912A26DB051C00A45E57 /* chatTableViewCellTableViewCell.swift */,
@@ -233,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				F037910226DB051C00A45E57 /* ChatViewController.swift */,
-				F037910326DB051C00A45E57 /* NewConversationViewController.swift */,
 				F037910426DB051C00A45E57 /* ConversationTableViewCell.swift */,
 			);
 			path = Chat;
@@ -243,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				F037910726DB051C00A45E57 /* Sections */,
+				F037910A26DB051C00A45E57 /* Extenstion */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -252,7 +259,6 @@
 			children = (
 				F037910826DB051C00A45E57 /* ProfileHeaderCollectionReusableView.swift */,
 				F037910926DB051C00A45E57 /* PhotoPostCollectionViewCell.swift */,
-				F037910A26DB051C00A45E57 /* Extenstion */,
 				F037911126DB051C00A45E57 /* Other_ProfileHeaderCollectionReusableView.swift */,
 				F037916F26DC20D200A45E57 /* SelfHeaderProfileCollectionReusableView.swift */,
 				F037911226DB051C00A45E57 /* WishlistButtonCollectionReusableView.swift */,
@@ -269,6 +275,7 @@
 				F037910E26DB051C00A45E57 /* ProductDescriptionViewController.swift */,
 				F037910F26DB051C00A45E57 /* WishViewController.swift */,
 				F037911026DB051C00A45E57 /* SettingsViewController.swift */,
+				F0F8B00D26E6ADB800A2ED97 /* AppInfoViewController.swift */,
 			);
 			path = Extenstion;
 			sourceTree = "<group>";
@@ -301,7 +308,6 @@
 			children = (
 				F037911C26DB051C00A45E57 /* UsersViewController.swift */,
 				F037911D26DB051C00A45E57 /* GenderViewController.swift */,
-				F037912326DB051C00A45E57 /* AllViewViewController.swift */,
 				F037912426DB051C00A45E57 /* StateViewController.swift */,
 				F037912526DB051C00A45E57 /* ColorsViewController.swift */,
 				F037912626DB051C00A45E57 /* GarmentsViewController.swift */,
@@ -456,18 +462,19 @@
 				F037916926DB052200A45E57 /* Structs.swift in Sources */,
 				F037914D26DB052200A45E57 /* UserSearchTableViewCell.swift in Sources */,
 				F037916026DB052200A45E57 /* chatTableViewCellTableViewCell.swift in Sources */,
+				F08A59D326EF8FB7001148FB /* RecomandationViewController.swift in Sources */,
 				F037913E26DB052200A45E57 /* descriptionTableViewCellTableViewCell.swift in Sources */,
 				F037914826DB052200A45E57 /* ProductDescriptionViewController.swift in Sources */,
 				F037915126DB052200A45E57 /* StateTableViewCellTableViewCell.swift in Sources */,
 				F037913D26DB052200A45E57 /* postTableViewCellTableViewCell.swift in Sources */,
 				F037915C26DB052200A45E57 /* GarmentsViewController.swift in Sources */,
 				F037914A26DB052200A45E57 /* SettingsViewController.swift in Sources */,
-				F037913B26DB052200A45E57 /* SceneDelegate.swift in Sources */,
 				F037915026DB052200A45E57 /* FindTableViewCellTableViewCell.swift in Sources */,
 				F037914F26DB052200A45E57 /* ArticlesTableViewCellTableViewCell.swift in Sources */,
-				F037913A26DB052200A45E57 /* AuthManager.swift in Sources */,
+				F08A59D926F2801E001148FB /* ExtraRecomandationsViewController.swift in Sources */,
 				F037914B26DB052200A45E57 /* Other_ProfileHeaderCollectionReusableView.swift in Sources */,
 				F037916826DB052200A45E57 /* ClickOnePostViewController.swift in Sources */,
+				F08A59D726F27E2C001148FB /* ExtraRecomendTableViewCell.swift in Sources */,
 				F037915A26DB052200A45E57 /* StateViewController.swift in Sources */,
 				F037916126DB052200A45E57 /* headerTableViewCellTableViewCell.swift in Sources */,
 				F037915626DB052200A45E57 /* GarmentsResultViewController.swift in Sources */,
@@ -476,21 +483,22 @@
 				F037914526DB052200A45E57 /* UserProfileSearchViewController.swift in Sources */,
 				F037914126DB052200A45E57 /* ConversationTableViewCell.swift in Sources */,
 				F03790E426DB038100A45E57 /* AppDelegate.swift in Sources */,
+				F0A7890526DEB82B0085BA1A /* SceneDelegate.swift in Sources */,
 				F037915726DB052200A45E57 /* StateResultViewController.swift in Sources */,
 				F037915826DB052200A45E57 /* GenderResultViewController.swift in Sources */,
 				F037915526DB052200A45E57 /* ColorsResultViewController.swift in Sources */,
 				F037913C26DB052200A45E57 /* Size.swift in Sources */,
+				F08A59D526EF9007001148FB /* RecomandationTableViewCell.swift in Sources */,
 				F037915B26DB052200A45E57 /* ColorsViewController.swift in Sources */,
-				F037915926DB052200A45E57 /* AllViewViewController.swift in Sources */,
 				F037915326DB052200A45E57 /* UsersViewController.swift in Sources */,
 				F037913F26DB052200A45E57 /* ChatViewController.swift in Sources */,
+				F0F8B00E26E6ADB800A2ED97 /* AppInfoViewController.swift in Sources */,
 				F037914C26DB052200A45E57 /* WishlistButtonCollectionReusableView.swift in Sources */,
 				F037914726DB052200A45E57 /* EditProfileViewController.swift in Sources */,
 				F037915426DB052200A45E57 /* GenderViewController.swift in Sources */,
 				F037916226DB052200A45E57 /* LoginViewController.swift in Sources */,
 				F037915F26DB052200A45E57 /* NotificationsViewController.swift in Sources */,
 				F037914326DB052200A45E57 /* ProfileHeaderCollectionReusableView.swift in Sources */,
-				F037914026DB052200A45E57 /* NewConversationViewController.swift in Sources */,
 				F037914E26DB052200A45E57 /* PostTableViewCellTableViewCell.swift in Sources */,
 				F037915226DB052200A45E57 /* GenderTableViewCellTableViewCell.swift in Sources */,
 				F037917026DC20D200A45E57 /* SelfHeaderProfileCollectionReusableView.swift in Sources */,

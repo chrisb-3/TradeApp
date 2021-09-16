@@ -20,8 +20,6 @@ protocol ArticlesTableViewCellDelegate: AnyObject  {
     func ArticlesTableViewCellDidTapTshirt(_: ArticlesTableViewCell)
     func ArticlesTableViewCellDidTapPants(_: ArticlesTableViewCell)
     
-//    func ArticlesTableViewCellDidTaptblue(_: ArticlesTableViewCell)
-    
     func ArticlesTableViewCellDidTaptBlue(_:ArticlesTableViewCell)
     func ArticlesTableViewCellDidTaptPink(_:ArticlesTableViewCell)
     func ArticlesTableViewCellDidTaptYellow(_:ArticlesTableViewCell)

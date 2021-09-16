@@ -5,15 +5,10 @@
 //  Created by Christina Braun on 28.08.21.
 //
 
-
 import UIKit
 import SDWebImage
 import FirebaseDatabase
 
-struct UserCell {
-    let name: String
-    let userEmail: String
-}
 
 class UserSearchTableViewCell: UITableViewCell {
 
@@ -24,7 +19,6 @@ class UserSearchTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 50
         imageView.layer.masksToBounds = true
-//        imageView.image = UIImage(named: "green")
         return imageView
     }()
 
@@ -83,7 +77,6 @@ class UserSearchTableViewCell: UITableViewCell {
 //                guard let stringEmail = email as? String else {
 //                    return
 //                }
-
                 let path = "images/\(mail)_profile_picture.png"
                 StorageManager.shared.downloadURL(for: path, completion: { result in
                     switch result {
@@ -103,4 +96,3 @@ class UserSearchTableViewCell: UITableViewCell {
     }
 
 }
-

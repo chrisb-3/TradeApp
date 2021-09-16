@@ -13,7 +13,6 @@ class EditProfileViewController: UIViewController {
     
     private let userProfileImage: UIImageView = {
         let image = UIImageView()
-//        image.image =  UIImage(systemName: "person.circle")
         image.tintColor = .gray
         image.contentMode = .scaleAspectFit
         image.layer.masksToBounds = true
@@ -124,11 +123,6 @@ class EditProfileViewController: UIViewController {
         let name = UserDefaults.standard.value(forKey: "username")
         let email = UserDefaults.standard.value(forKey: "email")
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email as! String)
-        //
-//        guard let image = self.userProfileImage.image,
-//              let data = image.pngData() else {
-//            return
-//        }
         
         guard let image = self.userProfileImage.image, let
                 data = image.pngData() else {
@@ -157,35 +151,6 @@ class EditProfileViewController: UIViewController {
 
         navigationController?.dismiss(animated: true, completion: nil)
     }
-
-    
-    @objc private func didTap() {
-        
-//        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-//            return
-//        }
-//
-//        let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
-//
-//
-//                    guard let image = self.userProfileImage.image, let data = image.pngData() else {
-//                        return
-//                    }
-//
-//                    let fileName = "safeEmail_profile_picture.png"
-//                    StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
-//                        switch result {
-//                        // either failure or success
-//                        case.success(let downloadUrl):
-//                            UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
-//                            print(downloadUrl)
-//
-//                        case.failure(let error):
-//                            print("Storage manage error: \(error)")
-//                        }
-//                    })
-
-                }
             
 
 
@@ -202,8 +167,6 @@ class EditProfileViewController: UIViewController {
     
     var imagePickerController = UIImagePickerController()
 }
-
-
 
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -242,7 +205,6 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { // when cancell is clicked
         picker.dismiss(animated: true, completion: nil)
     }
-
 }
 
 

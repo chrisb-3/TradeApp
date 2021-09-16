@@ -49,7 +49,8 @@ class StateTableViewCell: UITableViewCell {
                                 height: height-10)
     }
 
-    public func configure(with model: StateButtons) {
+//    public func configure(with model: StateButtons) {
+        public func configure(with model: ArticleButtons) {
         self.stateButton.setTitle(model.buttonLabel, for: .normal)
         self.stateButton.backgroundColor = model.backgroundColor
         self.stateButton.setTitleColor(model.textColor, for: .normal)

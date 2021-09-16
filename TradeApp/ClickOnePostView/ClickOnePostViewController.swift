@@ -80,8 +80,11 @@ extension ClickOnePostViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: postTableViewCell.identifier) as! postTableViewCell
             cell.postImg = post?.postImageNSUUID
 //
-            
-            DatabaseManager.database.child("posts").child((post?.postId)!).child("Exchanged").observeSingleEvent(of: .value, with: { snapshot in
+            guard let id = post?.postId as? String else {
+                return UITableViewCell()
+            }
+
+            DatabaseManager.database.child("posts").child(id).child("Exchanged").observeSingleEvent(of: .value, with: { snapshot in
                 guard let snap = snapshot.value as? String else {
                     return
                 }

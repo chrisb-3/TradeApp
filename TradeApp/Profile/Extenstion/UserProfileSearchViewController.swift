@@ -11,8 +11,6 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-//private var data = [TradeSellAll] ()
-
 class UserProfileSearchViewController: UIViewController {
     
     private var collectionView: UICollectionView?
@@ -25,10 +23,7 @@ class UserProfileSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         print(maaail)
-//        print("email.text: \(email.text)")
-
         super.viewDidLoad()
-//        data = []
         view.backgroundColor = .tertiarySystemBackground
         cofigureNavigationBar()
         
@@ -57,12 +52,7 @@ class UserProfileSearchViewController: UIViewController {
             return
             
         }
-        
-        
         view.addSubview(collectionView)
-        
-//        print("email.text: \(email.text)")
-
     }
     
     private func cofigureNavigationBar() {
@@ -92,14 +82,6 @@ class UserProfileSearchViewController: UIViewController {
         
         self.username = username
 
-
-//            DatabaseManager.database.child(maaail).child("posts").observe(.childAdded, with: { (snapshot) in
-//                print(" snapppp: \(snapshot)")
-//
-//                let postsSnapshot = snapshot.value as? String
-//                print("the snapshot \(postsSnapshot)")
-
-
         Database.database().reference().child("Emails").child(email).child("posts").observe(.childAdded, with: { (snapshot) in
                 
                 print("snapshot: \(snapshot)")
@@ -124,12 +106,8 @@ class UserProfileSearchViewController: UIViewController {
                     
                 })
             })
-//                })
-
     }
     
-
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
@@ -139,23 +117,12 @@ class UserProfileSearchViewController: UIViewController {
     @objc private func didTapChatButton() {
         let otherName = username
         let otherEmail = maaail
-//        let vc = ChatViewController(with: email, id: nil)
-////        vc.isNewConversation = true
-//        vc.title = name
-//        vc.navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.pushViewController(vc, animated: true)
         
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
 
-//        DatabaseManager.database.child(emailString).child("username").observeSingleEvent(of: .value, with: { snapshot in
-//
-//            let selfUsername = snapshot.value
-//        })
-        
-        
         
         ///check if conversations child even exists
         DatabaseManager.database.child("Emails").child(safeEmail).child("conversations").child(otherEmail).observeSingleEvent(of: .value, with: { snapshot in
@@ -182,8 +149,6 @@ class UserProfileSearchViewController: UIViewController {
                     "username": otherName,
                     "otherUserEmail": otherEmail,
                     "currentUserEmail": safeEmail
-//                    "latestMessage": "_"
-
                 ]
 
                 let collection: [String: Any] = [
@@ -191,7 +156,6 @@ class UserProfileSearchViewController: UIViewController {
                         newMessage
                     ]
                 ]
-//                currentMessages.append(newMessageEntry)
 
                 /// "all_convos" stores all conversation ids and under the ids all messages from a conversation
                 DatabaseManager.database.child("all_convos").child("\(newId)").setValue(collection)
@@ -231,7 +195,6 @@ class UserProfileSearchViewController: UIViewController {
                     return
                     
                 }
-                //            else {
                 print("not null")
                 
             DatabaseManager.database.child("Emails").child(safeEmail).child("conversations").child("\(otherEmail)").observeSingleEvent(of: .value, with: { snapshot in
@@ -243,18 +206,9 @@ class UserProfileSearchViewController: UIViewController {
                 vc.title = otherName
                 vc.navigationItem.largeTitleDisplayMode = .never
                 self.navigationController?.pushViewController(vc, animated: true)
-
                 })
-
-
-//            }
-            
         })
-
-//
     }
-    
-
 }
 
 extension UserProfileSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -269,8 +223,6 @@ extension UserProfileSearchViewController: UICollectionViewDelegate, UICollectio
             return 0   }
         
         return posts.count
-        
-        
     }
     
     /// what cells are shown in the collection view
@@ -331,31 +283,11 @@ extension UserProfileSearchViewController: UICollectionViewDelegate, UICollectio
         else{
         //header view
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Other_ProfileHeaderCollectionReusableView.identifier, for: indexPath) as! Other_ProfileHeaderCollectionReusableView
-//            print("the email for header \(header.emailString)")
-//            print("email.text: \(email.text)")
+
             header.emailString = maaail
         
-        header.delegate = self
-            
-//            print("the email for header \(header.emailString)")
-//            print("email.text: \(email.text)")
-            
-//        guard let email = email.text else {
-//            return UICollectionReusableView()
-//        }
-//        guard let emailS = UserDefaults.standard.value(forKey: "email") as? String else {
-//                   return UICollectionReusableView()
-//               }
-//               let safeEmail = DatabaseManager.safeEmail(emailAdress: emailS)
-//
-//        header.emailString = "emma_gmail_com"
-//        header.configure(with: email)
-        //mock user
-//        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-//            return UICollectionReusableView()
-//        }
-//        let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
-//        header.configure(with: safeEmail)
+//        header.delegate = self
+
         return header
     }
     }
@@ -383,26 +315,4 @@ extension UserProfileSearchViewController: WishlistButtonCollectionReusableViewD
             self.present(vc, animated: true)
     
     }
-    
-    func DidTapPostsButton(_header: WishlistButtonCollectionReusableView) {
-        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 1), at: .top , animated: true)
-    }
-    
-    
-    
-
-    
-}
-
-extension UserProfileSearchViewController: Other_ProfileHeaderCollectionReusableViewDelegate, UINavigationControllerDelegate {
-    func DidTapUserProfileImage(_ header: Other_ProfileHeaderCollectionReusableView) {
-        
-    }
-    
-    func DidTapEditText(_header: Other_ProfileHeaderCollectionReusableView) {
-        
-    }
-    
-    
-    
 }
