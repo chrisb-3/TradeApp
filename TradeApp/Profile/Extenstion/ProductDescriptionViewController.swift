@@ -24,6 +24,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: EmptyTableViewCell.identifier)
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
     
@@ -32,6 +33,9 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         image.tintColor = .gray
         image.contentMode = .scaleAspectFit
         image.layer.masksToBounds = true
+        image.tintColor = .label
+        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor.black.cgColor
         return image
     }()
     
@@ -70,8 +74,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    
-    let selectArticleTypes = ["jeans","t-shirt","coat","shirt","dress","skirt","jacket","pants","shoes","accessories", "other"]
     
     let country: UITextField = {
         let field = UITextField()
@@ -116,8 +118,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    let selectColors = ["Blue", "Pink", "Yellow", "Orange", "Red", "Green", "Brown", "White", "Black"
-    ]
     
     private let gender: UITextField = {
         let field = UITextField()
@@ -134,11 +134,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         return field
     }()
     
-    let selectGender = ["Female",
-                        "Male",
-                        "Any",
-                        "Other"
-    ]
+    
     let size: UITextField = {
         let field = UITextField()
         field.placeholder = "size"
@@ -168,7 +164,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    let selectProductState = ["good","bad","new","old","used","very good shape","other"]
+    
     private let exchangeWish: UITextField = {
         let field = UITextField()
         field.placeholder = "I would like ... in exchange"
@@ -183,10 +179,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    
-    let selectExchange = [
-        "jeans","t-shirt","coat","shirt","dress","skirt","jacket","pants","shoes","accessories", "nothing", "bargain", "other"
-    ]
     
     let aditionalInformationTextField: UITextField = {
         let field = UITextField()
@@ -215,7 +207,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         label.text = "Gender"
         return label
     }()
-    
     
     let articleTypeLabel: UILabel = {
         let label = UILabel()
@@ -268,9 +259,25 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-//    struct Selesction {
-//        let selectionOptions: [String]
-//    }
+    let selectArticleTypes = [
+        "jeans","t-shirt","coat","shirt","dress","skirt","jacket","pants","shoes","accessories", "other"
+    ]
+    
+    let selectColors = [
+        "Blue", "Pink", "Yellow", "Orange", "Red", "Green", "Brown", "White", "Black"
+    ]
+    
+    let selectGender = [
+        "Female","Male", "Any",  "Other"
+    ]
+    
+    let selectExchange = [
+        "jeans","t-shirt","coat","shirt","dress","skirt","jacket","pants","shoes","accessories", "nothing", "bargain", "other"
+    ]
+    let selectProductState = [
+        "good","bad","new","old","used","very good shape","other"
+    ]
+    
     
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(didTapPost))
@@ -326,10 +333,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         header.addSubview(imagePhoto)
         header.addSubview(AddImageLabel)
         
-        imagePhoto.layer.masksToBounds = true
-        imagePhoto.tintColor = .label
-        imagePhoto.layer.borderWidth = 1
-        imagePhoto.layer.borderColor = UIColor.black.cgColor
+        
         
         imagePhoto.frame = CGRect(x: 25,
                                   y: 20,
@@ -593,7 +597,8 @@ extension ProductDescriptionViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier) as! EmptyTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier) as! EmptyTableViewCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         
         return cell
         

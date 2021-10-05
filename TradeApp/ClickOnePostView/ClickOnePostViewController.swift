@@ -66,10 +66,10 @@ extension ClickOnePostViewController: UITableViewDelegate, UITableViewDataSource
             
             let cell = tableView.dequeueReusableCell(withIdentifier: headerTableViewCell.identifier) as! headerTableViewCell
             cell.postImg = post?.postImageNSUUID
-            guard let postID = post?.postImageNSUUID! else {
-                return UITableViewCell()
-            }
-            cell.Id = postID
+//            guard let postID = post?.postImageNSUUID! else {
+//                return UITableViewCell()
+//            }
+//            cell.Id = postID
             cell.delegate = self
             return cell
         }
@@ -192,13 +192,10 @@ extension ClickOnePostViewController: chatTableViewCellDelegatge {
         ///check if conversations child even exists
         DatabaseManager.database.child("Emails").child(safeEmail).child("conversations").child(otherEmail).observeSingleEvent(of: .value, with: { snapshot in
             let snap = snapshot.value as? String
-
-            print("snapshot of convo child \(snap)")
             
             guard snap != nil else {
                 /// the user does not jet have a folder with conversationss -> create one
                 print("snap == nil")
-
                 let newId = NSUUID().uuidString // generates a random id
                         // conversation doesn't exist yet -> create new convo
                 print("conversation doesn't exist yet. New id: \(newId)")
@@ -223,7 +220,7 @@ extension ClickOnePostViewController: chatTableViewCellDelegatge {
                     ]
                 ]
 
-                /// "all_convos" stores all conversation ids and under the ids all messages from a conversation
+                /// "all_convos" stores all conversation id's and under the id's all messages from a conversation
                 DatabaseManager.database.child("all_convos").child("\(newId)").setValue(collection)
                 
                 DatabaseManager.database.child("Emails").child(otherEmail).child("username").observeSingleEvent(of: .value, with: { snapshot in
@@ -256,6 +253,7 @@ extension ClickOnePostViewController: chatTableViewCellDelegatge {
                         "latest_Message": "",
                         "other_username": selfUsername
                     ]
+                    
                     ///folder containing information about sender/reciver and profile images
                     //folder selfEmail
                     DatabaseManager.database.child("conversation_information").child(newId).child(safeEmail).setValue(infoSelf)
@@ -266,8 +264,6 @@ extension ClickOnePostViewController: chatTableViewCellDelegatge {
                     
                 })
 
-                
-                
                 ///open new convo with newly created id
                 let vc = ChatViewController(with: otherEmail, id: newId, otherName: otherName)
                     vc.title = otherName
@@ -275,11 +271,8 @@ extension ClickOnePostViewController: chatTableViewCellDelegatge {
                     vc.navigationItem.largeTitleDisplayMode = .never
                     self.navigationController?.pushViewController(vc, animated: true)
                     return
-                    
                 }
-                //            else {
-                print("not null")
-                
+            
             DatabaseManager.database.child("Emails").child(safeEmail).child("conversations").child("\(otherEmail)").observeSingleEvent(of: .value, with: { snapshot in
                 
                 let id = snapshot.value

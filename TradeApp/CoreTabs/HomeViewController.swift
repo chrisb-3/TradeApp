@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
                 present(nav, animated: true)
             }
         }
-    
+
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "squareshape.controlhandles.on.squareshape.controlhandles"),
                                                             style: .done ,
@@ -84,27 +84,26 @@ class HomeViewController: UIViewController {
         vc.title = "Recmandation"
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+        
     func fetchAllPosts() {
         
         DatabaseManager.database.child("all_posts").observe(.childAdded, with: {
             (snapshot) in
-            
+        
             let postId = snapshot.key
             print("all posts: \(postId)")
+
             
             DatabaseManager.database.child("posts").child(postId).observeSingleEvent(of: .value, with: { snapshot in
                 guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
                     return
                 }
-                
+               
                 let post = PostInfo(postId: postId, dictionary: dictionary)
                 
                 self.allPosts.append(post)
                 
-                
-                
-                print("Post data\(post)")
+                print("Post data \(post)")
                 
                 self.tableView.reloadData()
             })
@@ -117,7 +116,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allPosts.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! UITableViewCell
@@ -132,23 +131,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
              print("snapshot \(snapshot)")
 
              if snap == "gone" {
-                 print("Item is gone")
+                 //Item is gone
                  cell.postImage.layer.opacity = 0.5
              }
-             print("Item is open")
+             //Item is not gone
 
          })
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.width/2
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let email = allPosts[indexPath.row].poster_emial!
-        
+
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         DatabaseManager.database.child("Emails").child(safeEmail).child("username").observeSingleEvent(of: .value, with: { snapshot in
             guard let username = snapshot.value as? String else {
@@ -157,8 +156,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = ClickOnePostViewController(with: safeEmail, username: username)
             vc.post = self.allPosts[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
-            
+
         })
-        
+
     }
 }
+

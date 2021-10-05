@@ -34,8 +34,8 @@ class WishlistButtonCollectionReusableView: UICollectionReusableView {
         
         ///button layout
         let buttonSize = (width/6)
-        let xPosition = CGFloat(10)
-        let buttonWidth = width-buttonSize*2
+//        let xPosition = CGFloat(10)
+//        let buttonWidth = width-buttonSize*2
         whishList.frame = CGRect(x: 10,
                                  y: 20,
                                  width: width-20,
@@ -44,7 +44,7 @@ class WishlistButtonCollectionReusableView: UICollectionReusableView {
 
         
         ///lable layout
-        let didtanceToButton = CGFloat(10)
+//        let didtanceToButton = CGFloat(10)
 //        let lablewidth = (width-buttonWidth-didtanceToButton-xPosition-10)
 //        let lablehight = buttonSize
         
@@ -58,7 +58,6 @@ class WishlistButtonCollectionReusableView: UICollectionReusableView {
         super.init(frame: frame)
         
         addSubview(whishList)
-        
         buttonActions()
     }
     

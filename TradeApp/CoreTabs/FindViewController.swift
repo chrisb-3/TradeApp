@@ -22,20 +22,20 @@ class FindViewController: UIViewController {
     private func createButtonArray() -> [Buttons] {
         
         var findButtons: [Buttons] = []
-        let yellow = UIImage(named: "yellow")!
-        let blue = UIImage(named: "blue")!
-        let brown = UIImage(named: "brown")!
-        let pink = UIImage(named: "pink")!
-        let red = UIImage(named: "red")!
-        let gray = UIImage(named: "gray")!
-        let users = UIImage(named: "people")!
-        
-        let garments = UIImage(named: "Bildschirmfoto 2021-09-08 um 11.10.42")!
-        let gender = UIImage(named: "Bildschirmfoto 2021-09-08 um 11.37.30")!
-        let color = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.39.49")!
-        let itemState = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.35.19")!
-        let usersImage = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.30.10")!
-        let all = UIImage(named: "Bildschirmfoto 2021-09-06 um 21.51.58")!
+//        let yellow = UIImage(named: "yellow")!
+//        let blue = UIImage(named: "blue")!
+//        let brown = UIImage(named: "brown")!
+//        let pink = UIImage(named: "pink")!
+//        let red = UIImage(named: "red")!
+//        let gray = UIImage(named: "gray")!
+//        let users = UIImage(named: "people")!
+//
+        let garments = UIImage(named: "Shirts")!
+        let gender = UIImage(named: "Clouds")!
+        let color = UIImage(named: "pink_shirts")!
+        let itemState = UIImage(named: "jeans")!
+        let usersImage = UIImage(named: "keyboard")!
+        let all = UIImage(named: "brown_shirts")!
 
         let b1 = Buttons(backgroundImage: garments, buttonLabel: "Garments",
                          handler: {[weak self] in

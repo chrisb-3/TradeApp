@@ -10,12 +10,12 @@ import FirebaseAuth
 import Firebase
 
 
-protocol Other_ProfileHeaderCollectionReusableViewDelegate: AnyObject {
-    func DidTapUserProfileImage(_ header: Other_ProfileHeaderCollectionReusableView)
-
-    func DidTapEditText(_header: Other_ProfileHeaderCollectionReusableView)
-
-}
+//protocol Other_ProfileHeaderCollectionReusableViewDelegate: AnyObject {
+////    func DidTapUserProfileImage(_ header: Other_ProfileHeaderCollectionReusableView)
+//
+//    func DidTapEditText(_header: Other_ProfileHeaderCollectionReusableView)
+//
+//}
 
 class Other_ProfileHeaderCollectionReusableView: UICollectionReusableView {
 
@@ -23,7 +23,7 @@ class Other_ProfileHeaderCollectionReusableView: UICollectionReusableView {
 
 
 
-    public weak var delegate: Other_ProfileHeaderCollectionReusableViewDelegate?
+//    public weak var delegate: Other_ProfileHeaderCollectionReusableViewDelegate?
 
 
 

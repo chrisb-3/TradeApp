@@ -28,25 +28,26 @@ class WishViewController: UIViewController {
     
     let list: UILabel = {
         let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = .darkGray
+        label.backgroundColor = .systemGray5
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.layer.cornerRadius = 12
+        label.sizeToFit()
+        label.center = .zero
+        label.layer.masksToBounds = true
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 20, weight: .regular)
+        
+        
         return label
     }()
 //
     public func configure(with model: String){
         
-        list.font = UIFont.preferredFont(forTextStyle: .body)
-        list.adjustsFontForContentSizeCategory = true
-        list.textColor = .darkGray
-        list.backgroundColor = .systemGray5
-        list.textColor = .black
-        list.numberOfLines = 0
-        list.layer.cornerRadius = 12
-        list.sizeToFit()
-        list.center = .zero
-        list.layer.masksToBounds = true
-        list.textAlignment = .left
-        list.font = .systemFont(ofSize: 20, weight: .regular)
-        
-        
+       
         DatabaseManager.database.child("Emails").child(model).child("Wishlist").observeSingleEvent(of: .value, with: {
             snapshot in
             guard let listResult = snapshot.value as? String else {
@@ -60,7 +61,7 @@ class WishViewController: UIViewController {
             guard let username = snapshot.value as? String else {
                 return
             }
-            let text = "s wishlist: "
+            let text = "'s Wishlist: "
             self.usernameAndTextLabel.text = username+text
            
         })

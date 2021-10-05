@@ -39,7 +39,7 @@ class UserProfileSearchViewController: UIViewController {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.backgroundColor = .systemBackground
         
-        collectionView?.register(Other_ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Other_ProfileHeaderCollectionReusableView.identifier)
+        collectionView?.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier)
         
         collectionView?.register(WishlistButtonCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: WishlistButtonCollectionReusableView.identifier)
         
@@ -282,9 +282,10 @@ extension UserProfileSearchViewController: UICollectionViewDelegate, UICollectio
         }
         else{
         //header view
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Other_ProfileHeaderCollectionReusableView.identifier, for: indexPath) as! Other_ProfileHeaderCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier, for: indexPath) as! ProfileHeaderCollectionReusableView
 
             header.emailString = maaail
+//            header.email = maaail
         
 //        header.delegate = self
 

@@ -33,7 +33,7 @@ class EditProfileViewController: UIViewController {
         button.setTitle("Done", for: .normal)
         button.layer.masksToBounds = true
         button.setTitleColor(.black, for: .normal)
-        button.layer.backgroundColor = UIColor.systemOrange.cgColor
+        button.layer.backgroundColor = UIColor.systemTeal.cgColor
         button.layer.cornerRadius = 12
         return button
     }()
@@ -44,6 +44,7 @@ class EditProfileViewController: UIViewController {
         choosePhotoLabel.addTarget(self,
                                    action: #selector(editProfileImage),
                                    for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(didTapDone), for: .touchUpInside)
         
         imagePickerController.delegate = self
         addSubviews()
@@ -114,8 +115,7 @@ class EditProfileViewController: UIViewController {
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancel))
-        
-        doneButton.addTarget(self, action: #selector(didTapDone), for: .touchUpInside)
+    
     }
     
     @objc func didTapDone() {
@@ -129,7 +129,7 @@ class EditProfileViewController: UIViewController {
             return
         }
         let appUser = AppUser(userName: name as! String,
-                              emailAdress: email as! String)
+                              emailAdress: safeEmail)
         let fileName = appUser.profilePictureFileName
 
         StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
@@ -151,15 +151,6 @@ class EditProfileViewController: UIViewController {
 
         navigationController?.dismiss(animated: true, completion: nil)
     }
-            
-
-
-    private func registrationAlert (message: String) {
-        let alert = UIAlertController(title: "Registration Error", message: message , preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        
-        present(alert, animated: true)
-    }
     
     @objc func editProfileImage() {
         presentPhotoActionSheet()
@@ -172,7 +163,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
 
 
     func presentPhotoActionSheet() {
-        let actionSheet = UIAlertController(title: "Profile Picture", message: "select a profile Image", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "Do you want to change your profile Image?", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel",
                                             style: .cancel,
                                             handler: nil))

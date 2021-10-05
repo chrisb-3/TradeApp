@@ -45,14 +45,6 @@ class descriptionTableViewCell: UITableViewCell {
                 }
                 self.gender.text = "\(Text)"
 }
-//            Database.database().reference().child("posts").child(NSUUID).child("transactionType").observeSingleEvent(of: .value) {(snapshot) in
-//                print(snapshot)
-//
-//                guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                    return
-//                }
-//                self.transactionType.text = "Transaction: \(Text)"
-//        }
             Database.database().reference().child("posts").child(NSUUID).child("city").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -112,30 +104,12 @@ class descriptionTableViewCell: UITableViewCell {
     }
     }
     
-    
-    
-    
-//    var productTitleVar: String? {
-//        didSet {
-//            guard let text = productTitleVar else {
-//                return
-//            }
-//
-//
-//        }
-//    }
-    
     let productTitle: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.font = .systemFont(ofSize: 20, weight: .heavy)
         return label
     }()
-//    let username: UILabel = {
-//        let label = UILabel()
-//        label.textColor = .label
-//        return label
-//    }()
     let articleType: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -155,10 +129,6 @@ class descriptionTableViewCell: UITableViewCell {
         let label = UILabel()
         return label
     }()
-//    let price: UILabel = {
-//        let label = UILabel()
-//        return label
-//    }()
     let city: UILabel = {
         let label = UILabel()
         return label
@@ -184,106 +154,15 @@ class descriptionTableViewCell: UITableViewCell {
         label.layer.masksToBounds = true
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-//        label.textAlignment = .justified
         return label
     }()
     
-//    public func configure(with model: PostDescription) {
-//    }
-//
-//    public func configure2(with model: PostInfo) {
-//
-//        Database.database().reference().child(model.poster_emial).child("productTitle").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.productTitle.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("transactionType").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.transactionType.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("priceLabel").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.priceLabel.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("city").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.city.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("country").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.country.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("size").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.size.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("color").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.color.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("productState").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.productState.text = Text
-//        }
-//        Database.database().reference().child(model.poster_emial).child("aditionalInformation").observeSingleEvent(of: .value) {(snapshot) in
-//
-//            guard let Text = snapshot.value as? String else { // makes the snapshot a string
-//                return
-//            }
-//
-//            self.aditionalInformation.text = Text
-//        }
-//
-////        productTitle.text = model.productTitle
-////        transactionType.text = ("Transaction type \(model.transactionType)")
-////        priceLabel.text = model.priceLabel
-////        city.text = model.city
-////        country.text = model.country
-////        size.text = model.size
-////        color.text = model.color
-////        productState.text = model.productState
-////        aditionalInformation.text = model.aditionalInformation
-//}
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(productTitle)
-//        contentView.addSubview(username)
         contentView.addSubview(articleType)
-//        contentView.addSubview(transactionType)
-//        contentView.addSubview(priceLabel)
         contentView.addSubview(exchangeWish)
         contentView.addSubview(gender)
         contentView.addSubview(city)
@@ -308,14 +187,6 @@ class descriptionTableViewCell: UITableViewCell {
                                y: articleType.bottom+10,
                                width: width-20,
                                height: height)
-//        transactionType.frame = CGRect(x: 10,
-//                                       y: productTitle.bottom+10,
-//                                       width: width-20,
-//                                       height: height)
-//        priceLabel.frame = CGRect(x: 10,
-//                                  y: transactionType.bottom+10,
-//                                  width: width-20,
-//                                  height: height)
         country.frame = CGRect(x: 10,
                                y: gender.bottom+10,
                                width: width-20,

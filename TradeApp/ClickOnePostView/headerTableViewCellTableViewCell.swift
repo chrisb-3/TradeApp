@@ -21,7 +21,7 @@ class headerTableViewCell: UITableViewCell {
     
     weak var delegate: headerTableViewCellDelegate?
     
-    var Id = String()
+//    var Id = String()
      
     let profileImage: UIImageView = {
         let image = UIImageView()
@@ -53,19 +53,19 @@ class headerTableViewCell: UITableViewCell {
 ////        delegate?.didTapExchanged(self)
 //    }
     
-    private let email: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    var userEmail: String? {
-        didSet{
-            guard let mail = userEmail else {
-                return
-            }
-            self.email.text = mail
-        }
-    }
+//    private let email: UILabel = {
+//        let label = UILabel()
+//        return label
+//    }()
+//
+//    var userEmail: String? {
+//        didSet{
+//            guard let mail = userEmail else {
+//                return
+//            }
+//            self.email.text = mail
+//        }
+//    }
     
     
     var postImg: String? {
@@ -122,7 +122,6 @@ class headerTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(profileImage)
         contentView.addSubview(username)
-        contentView.addSubview(exchanged)
         contentView.addSubview(exchanged)
         exchanged.addTarget(self, action: #selector(TapExchanged), for: .touchUpInside)
     }

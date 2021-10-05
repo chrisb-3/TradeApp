@@ -28,11 +28,12 @@ final class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureModels()
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        configureModels()
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,6 +88,16 @@ final class SettingsViewController: UIViewController {
                                                 AuthManager.shared.logOut(completion: { success in
                                                     DispatchQueue.main.async {
                                                         if success {
+//                                                            let vc = HomeViewController()
+//                                                            let nav = UINavigationController(rootViewController: vc)
+//                                                            nav.modalPresentationStyle = .overCurrentContext
+////                                                            strongSelf.present(nav, animated: false)
+//                                                            strongSelf.present(nav, animated: true)
+//                                                            
+//                                                            let vc1 = HomeViewController()
+////                                                            let nav1 = UINavigationController(rootViewController: vc1)
+//                                                            self?.navigationController?.show(vc1, sender: nil)
+//
                                                             let vc = LoginViewController()
                                                             let nav = UINavigationController(rootViewController: vc)
                                                             nav.modalPresentationStyle = .fullScreen

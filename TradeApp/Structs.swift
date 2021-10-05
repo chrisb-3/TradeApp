@@ -58,16 +58,25 @@ public class AuthManager {
     static let shared = AuthManager()
     
     public func logOut(completion: (Bool) -> Void) {
-        do {
-            try Auth.auth().signOut()
-            completion(true)
-            return
-        }
-        catch{
-            print(error)
-            completion(false)
-            return
-        }
+//        do {
+//            try Auth.auth().signOut()
+//            completion(true)
+//            return
+//        }
+//        catch{
+//            print(error)
+//            completion(false)
+//            return
+//        }
+        let firebaseAuth = Auth.auth()
+    do {
+      try firebaseAuth.signOut()
+        completion(true)
+        
+    } catch let signOutError as NSError {
+      print("Error signing out: %@", signOutError)
+        completion(false)
+    }
     }
 }
 
@@ -76,18 +85,7 @@ public enum DatabaseError: Error {
     case failedToGetUserName
 }
 
-class Recomand {
-    
-//    var selfId: String!
-//    var otherId: String!
-//    var poster_emial: String!
-//    
-//    init(selfId: String!, otherId: String!, dictionary: Dictionary<String,AnyObject>) {
-//        if let poster_emial = dictionary["poster_emial"] as? String {
-//            self.poster_emial = poster_emial
-//        }
-//        
-//    }
+class Recommend {
     
     var selfId: String!
     var otherId: String!
@@ -113,6 +111,7 @@ class Recomand {
         }
     }
 }
+
 class PostInfo {
     
     var articleType: String!
@@ -219,4 +218,44 @@ class Convo {
             self.latestMessage = latestMessage
         }
     }
+}
+
+struct Message: MessageType {
+    public var sender: SenderType
+    public var messageId: String
+    public var sentDate: Date
+    public var kind: MessageKind
+}
+
+extension MessageKind {
+    var messageKindString: String {
+        switch self {
+        case .text(_):
+            return "text"
+        case .attributedText(_):
+            return "attributed_Text"
+        case .photo(_):
+            return "photo"
+        case .video(_):
+            return "video"
+        case .location(_):
+            return "location"
+        case .emoji(_):
+            return "emoji"
+        case .audio(_):
+            return "audio"
+        case .contact(_):
+            return "contact"
+        case .linkPreview(_):
+            return "link_prewiew"
+        case .custom(_):
+            return "custom"
+        }
+    }
+}
+
+struct Sender: SenderType {
+   public var photoURL: String
+   public var senderId: String
+   public var displayName: String
 }

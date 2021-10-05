@@ -46,7 +46,6 @@ class PhotoPostCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(postImageView)
     }
     
