@@ -40,10 +40,7 @@ class ChatViewController: MessagesViewController {
         return Sender(photoURL: "",
                       senderId: safeEmail,
                       displayName: "")
-        
     }
-    
-    
     
     init(with email: String, id: String?, otherName: String?) {
         self.conversationId = id

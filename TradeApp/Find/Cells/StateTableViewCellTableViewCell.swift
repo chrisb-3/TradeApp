@@ -12,7 +12,7 @@ protocol StateTableViewCellDelegate: AnyObject  {
     func StateTableViewCellDidTapBad(_: StateTableViewCell)
     func StateTableViewCellDidTapNew(_: StateTableViewCell)
     func StateTableViewCellDidTapOld(_: StateTableViewCell)
-    func StateTableViewCellDidTapUsed(_: StateTableViewCell)
+//    func StateTableViewCellDidTapUsed(_: StateTableViewCell)
     func StateTableViewCellDidTapVeryGoodShape(_: StateTableViewCell)
 }
 
@@ -65,10 +65,10 @@ class StateTableViewCell: UITableViewCell {
         print("Button clicked")
         delegate?.StateTableViewCellDidTapOld(self)
     }
-    @objc func didTapUsed() {
-        print("Button clicked")
-        delegate?.StateTableViewCellDidTapUsed(self)
-    }
+//    @objc func didTapUsed() {
+//        print("Button clicked")
+//        delegate?.StateTableViewCellDidTapUsed(self)
+//    }
     @objc func didTapVeryGoodShape() {
         print("Button clicked")
         delegate?.StateTableViewCellDidTapVeryGoodShape(self)

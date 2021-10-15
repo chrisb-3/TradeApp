@@ -200,7 +200,7 @@ extension ClickOnePostViewController: chatTableViewCellDelegatge {
                         // conversation doesn't exist yet -> create new convo
                 print("conversation doesn't exist yet. New id: \(newId)")
 
-                ///save the id in the convo folder of the curren t user and the other user so it can be recalled in future
+                ///save the id in the convo folder of the current user and the other user so it can be recalled in future
                 DatabaseManager.database.child("Emails").child(safeEmail).child("conversations").child(otherEmail).setValue(newId)
                 DatabaseManager.database.child("Emails").child(otherEmail).child("conversations").child(safeEmail).setValue(newId)
                 

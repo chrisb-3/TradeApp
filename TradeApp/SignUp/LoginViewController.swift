@@ -7,11 +7,11 @@
 
 import UIKit
 import FirebaseAuth
-import JGProgressHUD
+//import JGProgressHUD
 
 class LoginViewController: UIViewController {
  
-    private let spinner = JGProgressHUD(style: .light )
+//    private let spinner = JGProgressHUD(style: .light )
     
     private let emailTextField: UITextField = {
         let field = UITextField()
@@ -89,7 +89,6 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
     }
-    
     
     private func addSubviews() {
         view.addSubview(headerView)
@@ -205,80 +204,136 @@ class LoginViewController: UIViewController {
 //    }
     
     @objc private func didTapLoginButton() {
+          emailTextField.resignFirstResponder() //dismissses keyboard
+          passwordTextField.resignFirstResponder()
+          
+          guard let email = emailTextField.text,
+                let password = passwordTextField.text,
+                !email.isEmpty, !password.isEmpty else {
+              inserteAlert(message: "please fill out all fields")
+              return
+          }
+          if password.count <= 8 {
+              inserteAlert(message: "password incorrect")
+              return
+          }
+          
+//          spinner.show(in: view)
+          
+          FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
+              guard let strongSelf = self else {
+                  return
+              }
+              DispatchQueue.main.async {
+//                  strongSelf.spinner.dismiss()
+              }
+              
+              guard let authRes = authResult, error == nil else {
+                  print("error loging in")
+                  guard let strongSelf = self else{
+                      return
+                  }
+                  strongSelf.inserteAlert(message: "email or password is incorrect. Are you registerd?")
+                  return
+              }
+              let user = authRes.user
+              print("Logged in user: \(user)")
+              
+              let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
+              
+              UserDefaults.standard.set(email, forKey: "email") // save users email adress
+              print(email)
 
-        emailTextField.resignFirstResponder() //dismissses keyboard
-        passwordTextField.resignFirstResponder()
-
-        guard let email = emailTextField.text,
-              let password = passwordTextField.text,
-              !email.isEmpty, !password.isEmpty else {
-            inserteAlert(message: "please fill out all fields")
-            return
-        }
-        if password.count <= 8 {
-            inserteAlert(message: "password incorrect")
-            return
-        }
+              DatabaseManager.database.child("Emails").child(safeEmail).child("username").observeSingleEvent(of: .value, with: {
+                  snapshot in
+                  guard let username = snapshot.value else {
+                      return
+                  }
+                  UserDefaults.standard.set(username, forKey: "username")
+  print(username)
+              })
+              
+              strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+          })
+          
+      }
+    
+//    @objc private func didTapLoginButton() {
 //
-//        spinner.show(in: view)
-//        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
-            FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
-//            guard let strongSelf = self else {
+//        emailTextField.resignFirstResponder() //dismissses keyboard
+//        passwordTextField.resignFirstResponder()
+//
+//        guard let email = emailTextField.text,
+//              let password = passwordTextField.text,
+//              !email.isEmpty, !password.isEmpty else {
+//            inserteAlert(message: "please fill out all fields")
+//            return
+//        }
+//        if password.count <= 8 {
+//            inserteAlert(message: "password incorrect")
+//            return
+//        }
+////
+////        spinner.show(in: view)
+////        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
+//            FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
+////            guard let strongSelf = self else {
+////                return
+////            }
+//            DispatchQueue.main.async {
+////                strongSelf.spinner.dismiss()
+////                self.spinner.dismiss()
+//            }
+//            guard let authRes = authResult, error == nil else {
+//                print("error loging in")
+////                guard let strongSelf = self else{
+////                    return
+////                }
+////                strongSelf.inserteAlert(message: "email or password is incorrect. Are you registerd?")
+//                self.inserteAlert(message: "email or password is incorrect. Are you registerd?")
 //                return
 //            }
-            DispatchQueue.main.async {
-//                strongSelf.spinner.dismiss()
-                self.spinner.dismiss()
-            }
-            guard let authRes = authResult, error == nil else {
-                print("error loging in")
-//                guard let strongSelf = self else{
-//                    return
-//                }
-//                strongSelf.inserteAlert(message: "email or password is incorrect. Are you registerd?")
-                self.inserteAlert(message: "email or password is incorrect. Are you registerd?")
-                return
-            }
-            let user = authRes.user
-            print("Logged in user: \(user)")
-
-            let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
-
-            UserDefaults.standard.set(email, forKey: "email") // save users email adress
-            print(email)
-
-//            DatabaseManager.database.child("Emails").child(safeEmail).child("username").observeSingleEvent(of: .value, with: {
-//                snapshot in
-//                guard let username = snapshot.value else {
-//                    return
-//                }
-//                UserDefaults.standard.set(username, forKey: "username")
-//print(username)
-//            })
-                DatabaseManager.database.child("Emails").child(safeEmail).child("username").getData(completion: { error, snapshot in
-                    guard error == nil else {
-                      print(error!.localizedDescription)
-                      return
-                    }
-                    guard let username = snapshot.value else {
-                        return
-                    }
-                    UserDefaults.standard.set(username, forKey: "username")
-    print(username)
-                })
-
-//            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
-                
-                self.navigationController?.dismiss(animated: true, completion: nil)
-
-        })
-
-    }
+//            let user = authRes.user
+//            print("Logged in user: \(user)")
+//
+//            let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
+//
+//            UserDefaults.standard.set(email, forKey: "email") // save users email adress
+//            print(email)
+//
+////            DatabaseManager.database.child("Emails").child(safeEmail).child("username").observeSingleEvent(of: .value, with: {
+////                snapshot in
+////                guard let username = snapshot.value else {
+////                    return
+////                }
+////                UserDefaults.standard.set(username, forKey: "username")
+////print(username)
+////            })
+//                DatabaseManager.database.child("Emails").child(safeEmail).child("username").getData(completion: { error, snapshot in
+//                    guard error == nil else {
+//                      print(error!.localizedDescription)
+//                      return
+//                    }
+//                    guard let username = snapshot.value else {
+//                        return
+//                    }
+//                    UserDefaults.standard.set(username, forKey: "username")
+//    print(username)
+//                })
+//
+////            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+//
+//                self.navigationController?.dismiss(animated: true, completion: nil)
+//
+//        })
+//
+//    }
 
     @objc func didTapNewUserRegistrationButton() {
+            print("button clicked")
         let vc = RegistrationViewController()
         vc.title = "Register"
-        navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     private func inserteAlert(message: String) {

@@ -160,7 +160,7 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         return allConvos.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = allConvos[indexPath.row]
+//        let model = allConvos[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier,
                                                  for: indexPath) as! ConversationTableViewCell
         cell.configureMessage(with: latestMessage)

@@ -533,6 +533,10 @@ public func storePostDataToFirebase(with data: Data,
                 DatabaseManager.database.child("Search").child("color").child("Black").child(postImageNSUUID).setValue(postImageNSUUID)
                 
             }
+            if color == "Mix" {
+                DatabaseManager.database.child("Search").child("color").child("Mix").child(postImageNSUUID).setValue(postImageNSUUID)
+                
+            }
 
             ///Item states
             if  productState == "good" {
@@ -547,9 +551,9 @@ public func storePostDataToFirebase(with data: Data,
             if  productState == "old" {
                 DatabaseManager.database.child("Search").child("Item_state").child("Old").child(postImageNSUUID).setValue(postImageNSUUID)
             }
-            if  productState == "used" {
-                DatabaseManager.database.child("Search").child("Item_state").child("Used").child(postImageNSUUID).setValue(postImageNSUUID)
-            }
+//            if  productState == "used" {
+//                DatabaseManager.database.child("Search").child("Item_state").child("Used").child(postImageNSUUID).setValue(postImageNSUUID)
+//            }
             if  productState == "very good shape" {
                 DatabaseManager.database.child("Search").child("Item_state").child("very_good_shape").child(postImageNSUUID).setValue(postImageNSUUID)
             }

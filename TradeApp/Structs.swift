@@ -32,6 +32,11 @@ struct Buttons {
     let action: Selector
 }
 
+struct SettingCellModel {
+    let title: String
+    let handler: (()-> Void)
+}
+
 struct UserCell {
     let name: String
     let userEmail: String

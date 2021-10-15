@@ -48,12 +48,21 @@ class ColorsViewController: UIViewController {
         let b8 = ArticleButtons(backgroundColor: .brown, textColor: .white, buttonLabel: "brown", handler:{[weak self] in
             self?.didTapBrown()
         }, action: #selector(didTapBrown))
-        let b9 = ArticleButtons(backgroundColor: .quaternarySystemFill, textColor: .secondaryLabel, buttonLabel: "white", handler:{[weak self] in
-            self?.didTapWhite()
-        }, action: #selector(didTapWhite))
-        let b10 = ArticleButtons(backgroundColor: .black, textColor: .white, buttonLabel: "black", handler:{[weak self] in
+        let b9 = ArticleButtons(backgroundColor: .black, textColor: .white, buttonLabel: "black", handler:{[weak self] in
             self?.didTapBlack()
         }, action: #selector(didTapBlack))
+        let b10 = ArticleButtons(backgroundColor: .secondarySystemFill, textColor: .secondaryLabel, buttonLabel: "white", handler:{[weak self] in
+            self?.didTapWhite()
+        }, action: #selector(didTapWhite))
+        let b11 = ArticleButtons(backgroundColor: .gray, textColor: .white, buttonLabel: "gray", handler:{[weak self] in
+            self?.didTapGray()
+        }, action: #selector(didTapGray))
+        let b12 = ArticleButtons(backgroundColor: .purple, textColor: .white, buttonLabel: "Mix", handler:{[weak self] in
+            self?.didTapMix()
+        }, action: #selector(didTapMix))
+        let b13 = ArticleButtons(backgroundColor: .systemIndigo, textColor: .white, buttonLabel: "other", handler:{[weak self] in
+            self?.didTapOther()
+        }, action: #selector(didTapOther))
         
         colorButtons.append(b1)
         colorButtons.append(b2)
@@ -62,9 +71,13 @@ class ColorsViewController: UIViewController {
         colorButtons.append(b5)
         colorButtons.append(b6)
         colorButtons.append(b7)
-//        colorButtons.append(b8)
+        colorButtons.append(b8)
         colorButtons.append(b9)
         colorButtons.append(b10)
+        colorButtons.append(b11)
+        colorButtons.append(b12)
+        colorButtons.append(b13)
+        
         return colorButtons
     }
     
@@ -79,6 +92,7 @@ class ColorsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        tableView.separatorColor = .clear
     }
         
         @objc func didTapBlue() {
@@ -140,6 +154,24 @@ class ColorsViewController: UIViewController {
         let vc = ColorsResultsViewController()
         vc.title = "Black"
         vc.configure(with: "Black")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func didTapGray() {
+        let vc = ColorsResultsViewController()
+        vc.title = "Gray"
+        vc.configure(with: "Gray")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func didTapMix() {
+        let vc = ColorsResultsViewController()
+        vc.title = "Mix"
+        vc.configure(with: "Mix")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func didTapOther() {
+        let vc = ColorsResultsViewController()
+        vc.title = "Other"
+        vc.configure(with: "Other")
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -237,10 +269,30 @@ extension ColorsViewController: ArticlesTableViewCellDelegate {
         vc.title = "Black"
         vc.configure(with: "Black")
         navigationController?.pushViewController(vc, animated: true)
-        
-        
+      
+    }
+    func ArticlesTableViewCellDidTaptGray(_: ArticlesTableViewCell) {
+        let vc = ColorsResultsViewController()
+        vc.title = "Gray"
+        vc.configure(with: "Gray")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func ArticlesTableViewCellDidTaptMix(_: ArticlesTableViewCell) {
+        let vc = ColorsResultsViewController()
+        vc.title = "Mix"
+        vc.configure(with: "Mix")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func ArticlesTableViewCellDidTaptOther(_: ArticlesTableViewCell) {
+        let vc = ColorsResultsViewController()
+        vc.title = "Other"
+        vc.configure(with: "Other")
+        navigationController?.pushViewController(vc, animated: true)
         
     }
+        
     
     func ArticlesTableViewCellDidTapjeans(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()

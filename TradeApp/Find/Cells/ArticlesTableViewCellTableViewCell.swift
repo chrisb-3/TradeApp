@@ -30,6 +30,9 @@ protocol ArticlesTableViewCellDelegate: AnyObject  {
     func ArticlesTableViewCellDidTaptWhite(_:ArticlesTableViewCell)
     func ArticlesTableViewCellDidTaptBlack(_:ArticlesTableViewCell)
     func ArticlesTableViewCellDidTaptPurple(_:ArticlesTableViewCell)
+    func ArticlesTableViewCellDidTaptMix(_:ArticlesTableViewCell)
+    func ArticlesTableViewCellDidTaptGray(_:ArticlesTableViewCell)
+    func ArticlesTableViewCellDidTaptOther(_:ArticlesTableViewCell)
     
 }
 
@@ -186,6 +189,23 @@ class ArticlesTableViewCell: UITableViewCell {
     @objc func didTapBlack() {
         print("Button clicked")
         delegate?.ArticlesTableViewCellDidTaptBlack(self)
+    
+    }
+    
+    @objc func didTapMix() {
+        print("Button clicked")
+        delegate?.ArticlesTableViewCellDidTaptMix(self)
+    
+    }
+    @objc func didTapGray() {
+        print("Button clicked")
+        delegate?.ArticlesTableViewCellDidTaptGray(self)
+    
+    }
+    
+    @objc func didTapOther() {
+        print("Button clicked")
+        delegate?.ArticlesTableViewCellDidTaptOther(self)
     
     }
 

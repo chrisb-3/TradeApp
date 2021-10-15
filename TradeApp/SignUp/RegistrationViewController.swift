@@ -269,6 +269,7 @@ class RegistrationViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    
     @objc func didTapAddProfilePicture() {
         let actionSheet = UIAlertController(title: "Profile Picture", message: "select a profile Image", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel",

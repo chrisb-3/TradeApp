@@ -303,6 +303,27 @@ extension GarmentsViewController: ArticlesTableViewCellDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func ArticlesTableViewCellDidTaptGray(_: ArticlesTableViewCell) {
+        let vc = ColorsResultsViewController()
+        vc.title = "Gray"
+        vc.configure(with: "Gray")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func ArticlesTableViewCellDidTaptMix(_: ArticlesTableViewCell) {
+        let vc = ColorsResultsViewController()
+        vc.title = "Mix"
+        vc.configure(with: "Mix")
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func ArticlesTableViewCellDidTaptOther(_: ArticlesTableViewCell) {
+        let vc = ColorsResultsViewController()
+        vc.title = "Other"
+        vc.configure(with: "Other")
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
     
     
 }

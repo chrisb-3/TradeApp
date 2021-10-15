@@ -70,7 +70,14 @@ class HomeViewController: UIViewController {
                 let nav = UINavigationController(rootViewController: vc) // user is not logged in, go to LogginViewcontroller
                 nav.modalPresentationStyle = .fullScreen
                 present(nav, animated: true)
-            }
+        }
+//            if Auth.auth().currentUser == nil {
+//                // show log in
+//               let loginVC = LoginViewController()
+//                loginVC.modalPresentationStyle = .fullScreen
+//
+//                present(loginVC, animated: false)
+//            }
         }
 
     private func configureNavigationBar() {

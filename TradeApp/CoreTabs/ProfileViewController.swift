@@ -291,9 +291,10 @@ class ProfileViewController: UIViewController {
         let size = (view.width-4)/3
         layout.itemSize = CGSize(width: size, height: size)
         
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.backgroundColor = .systemBackground
-        
+
         /// Header with username, profilephoto, bio, post number, points
         collectionView?.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier)
         
@@ -315,10 +316,13 @@ class ProfileViewController: UIViewController {
     func fetchCurrentUserData() {
         
         
-        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-            return
-        }
-        
+//        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+//            return
+//        }
+         guard let email = UserDefaults.standard.object(forKey: "email") as? String else {
+        return
+    }
+    
         print(email)
         
         let usersafeEmail = DatabaseManager.safeEmail(emailAdress: UserEmail)

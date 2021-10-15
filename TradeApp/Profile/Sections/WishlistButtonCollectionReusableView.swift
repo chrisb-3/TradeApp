@@ -34,6 +34,7 @@ class WishlistButtonCollectionReusableView: UICollectionReusableView {
         
         ///button layout
         let buttonSize = (width/6)
+
 //        let xPosition = CGFloat(10)
 //        let buttonWidth = width-buttonSize*2
         whishList.frame = CGRect(x: 10,

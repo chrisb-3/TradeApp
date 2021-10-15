@@ -152,7 +152,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     
     let productState: UITextField = {
         let field = UITextField()
-        field.placeholder = "good/bad/used/new"
+        field.placeholder = "good/bad/new"
         field.returnKeyType = .next
         field.leftViewMode = .always
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -255,7 +255,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     let aditionalInformationLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "More Information"
+        label.text = "More Info"
         return label
     }()
     
@@ -264,7 +264,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     ]
     
     let selectColors = [
-        "Blue", "Pink", "Yellow", "Orange", "Red", "Green", "Brown", "White", "Black"
+        "Blue", "Pink", "Yellow", "Orange", "Red", "Green", "Brown", "White", "Black", "Gray", "Mix", "Other"
     ]
     
     let selectGender = [
@@ -275,7 +275,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         "jeans","t-shirt","coat","shirt","dress","skirt","jacket","pants","shoes","accessories", "nothing", "bargain", "other"
     ]
     let selectProductState = [
-        "good","bad","new","old","used","very good shape","other"
+        "good","bad","new","old","very good shape","other"
     ]
     
     

@@ -37,9 +37,9 @@ class StateViewController: UIViewController {
         let b4 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "old", handler:{[weak self] in
             self?.didTapOld()
         }, action: #selector(didTapOld))
-        let b5 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "used", handler:{[weak self] in
-            self?.didTapUsed()
-        }, action: #selector(didTapUsed))
+//        let b5 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "used", handler:{[weak self] in
+//            self?.didTapUsed()
+//        }, action: #selector(didTapUsed))
         let b6 = ArticleButtons(backgroundColor: .systemRed, textColor: .white, buttonLabel: "very goog shape", handler:{[weak self] in
             self?.didTapVeryGoodShape()
         }, action: #selector(didTapVeryGoodShape))
@@ -49,7 +49,7 @@ class StateViewController: UIViewController {
         stateButtons.append(b2)
         stateButtons.append(b3)
         stateButtons.append(b4)
-        stateButtons.append(b5)
+//        stateButtons.append(b5)
         stateButtons.append(b6)
         
         return stateButtons
@@ -93,12 +93,12 @@ class StateViewController: UIViewController {
         vc.configure(with: "Old")
         navigationController?.pushViewController(vc, animated: true)
     }
-    @objc func didTapUsed() {
-        let vc = StateResultViewController()
-        vc.title = "Used"
-        vc.configure(with: "Used")
-        navigationController?.pushViewController(vc, animated: true)
-    }
+//    @objc func didTapUsed() {
+//        let vc = StateResultViewController()
+//        vc.title = "Used"
+//        vc.configure(with: "Used")
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
     @objc func didTapVeryGoodShape() {
         let vc = StateResultViewController()
         vc.title = "Very good shape"
@@ -161,13 +161,13 @@ extension StateViewController: StateTableViewCellDelegate {
         
     }
     
-    func StateTableViewCellDidTapUsed(_: StateTableViewCell) {
-        let vc = StateResultViewController()
-        vc.title = "Used"
-        vc.configure(with: "Used")
-        navigationController?.pushViewController(vc, animated: true)
-        
-    }
+//    func StateTableViewCellDidTapUsed(_: StateTableViewCell) {
+//        let vc = StateResultViewController()
+//        vc.title = "Used"
+//        vc.configure(with: "Used")
+//        navigationController?.pushViewController(vc, animated: true)
+//        
+//    }
     
     func StateTableViewCellDidTapVeryGoodShape(_: StateTableViewCell) {
         let vc = StateResultViewController()

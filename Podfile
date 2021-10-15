@@ -11,9 +11,8 @@ pod 'Firebase/Core'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
-pod 'SDWebImage' #enables you to display pictures with a url
 pod 'Firebase/Storage'
-pod 'FirebaseUI'
+pod 'SDWebImage' #enables you to display pictures with a url
 pod 'MessageKit'
 pod 'JGProgressHUD'
 
