@@ -7,7 +7,6 @@
 
 
 import UIKit
-import FirebaseDatabase
 
 class EditProfileViewController: UIViewController {
     
@@ -25,8 +24,6 @@ class EditProfileViewController: UIViewController {
         button.setTitle("Tap on the profile image to edit it", for: .normal)
         return button
     }()
-
-   
 
     private let doneButton: UIButton = {
         let button = UIButton()
@@ -56,7 +53,6 @@ class EditProfileViewController: UIViewController {
         
         userProfileImage.addGestureRecognizer(gesture)
         loadImage()
-
     }
 
     override func viewDidLayoutSubviews() {
@@ -108,14 +104,11 @@ class EditProfileViewController: UIViewController {
                 print("failed to get url: \(error)")
             }
         })
-        
-        
     }
     
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancel))
-    
     }
     
     @objc func didTapDone() {
@@ -144,7 +137,6 @@ class EditProfileViewController: UIViewController {
             }
         })
         navigationController?.dismiss(animated: true, completion: nil)
-        
     }
     
     @objc private func didTapCancel() {

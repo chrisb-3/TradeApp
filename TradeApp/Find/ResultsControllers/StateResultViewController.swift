@@ -6,9 +6,8 @@
 //
 
 import UIKit
-
 class StateResultViewController: UIViewController {
-
+    
     private var stateResults = [PostInfo]()
     
     let tableView: UITableView = {
@@ -29,33 +28,23 @@ class StateResultViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
-    
     public func configure(with model: String)
-    
     {
         let ItemState = model
         DatabaseManager.database.child("Search").child("Item_state").child(ItemState).observe(.childAdded, with: {
             (snapshot) in
-            
             let postId = snapshot.key
-            
             DatabaseManager.database.child("posts").child(postId).observeSingleEvent(of: .value, with: { snapshot in
                 guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
                     return
                 }
-                
                 let post = PostInfo(postId: postId, dictionary: dictionary)
-                
                 self.stateResults.append(post)
-                
                 print("Post data\(post)")
-                
                 self.tableView.reloadData()
             })
         })
     }
-    
 }
 extension StateResultViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,13 +59,11 @@ extension StateResultViewController: UITableViewDelegate, UITableViewDataSource 
                 return
             }
             print("snapshot \(snapshot)")
-
             if snap == "gone" {
                 print("Item is gone")
                 cell.postImage.layer.opacity = 0.5
             }
             print("Item is open")
-
         })
         return cell
     }
@@ -84,19 +71,14 @@ extension StateResultViewController: UITableViewDelegate, UITableViewDataSource 
         return view.width/2
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let email = stateResults[indexPath.row].poster_emial!
-        
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         DatabaseManager.database.child("Emails").child(safeEmail).child("username").observeSingleEvent(of: .value, with: { snapshot in
             let username = snapshot.value as? String
             let vc = ClickOnePostViewController(with: safeEmail, username: username!)
             vc.post = self.stateResults[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
-            
         })
     }
-    
-    
 }
 

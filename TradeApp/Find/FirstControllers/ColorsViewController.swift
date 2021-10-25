@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class ColorsViewController: UIViewController {
     
     private let tableView: UITableView = {
@@ -18,12 +17,10 @@ class ColorsViewController: UIViewController {
     }()
     
     public var colorButtons = [ArticleButtons]()
-    
     private func createColorButtonArray() -> [ArticleButtons] {
         
         var colorButtons: [ArticleButtons] = []
         
-    
         let b1 = ArticleButtons(backgroundColor: .systemYellow , textColor: .white, buttonLabel: "yellow", handler:{[weak self] in
             self?.didTapYellow()
         }, action: #selector(didTapYellow))
@@ -77,10 +74,8 @@ class ColorsViewController: UIViewController {
         colorButtons.append(b11)
         colorButtons.append(b12)
         colorButtons.append(b13)
-        
         return colorButtons
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
@@ -94,14 +89,13 @@ class ColorsViewController: UIViewController {
         tableView.frame = view.bounds
         tableView.separatorColor = .clear
     }
-        
-        @objc func didTapBlue() {
-            let vc = ColorsResultsViewController()
-            vc.title = "Blue"
-            vc.configure(with: "Blue")
-            navigationController?.pushViewController(vc, animated: true)
-        }
     
+    @objc func didTapBlue() {
+        let vc = ColorsResultsViewController()
+        vc.title = "Blue"
+        vc.configure(with: "Blue")
+        navigationController?.pushViewController(vc, animated: true)
+    }
     @objc func didTapYellow() {
         let vc = ColorsResultsViewController()
         vc.title = "Yellow"
@@ -174,8 +168,6 @@ class ColorsViewController: UIViewController {
         vc.configure(with: "Other")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
 }
 
 extension ColorsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -194,8 +186,6 @@ extension ColorsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
-    
 }
 
 extension ColorsViewController: ArticlesTableViewCellDelegate {
@@ -207,69 +197,59 @@ extension ColorsViewController: ArticlesTableViewCellDelegate {
         vc.configure(with: "Purple")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptBlue(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Blue"
         vc.configure(with: "Blue")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptPink(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Pink"
         vc.configure(with: "Pink")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptYellow(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Yellow"
         vc.configure(with: "Yellow")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptOrange(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Orange"
         vc.configure(with: "Orange")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptRed(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Red"
         vc.configure(with: "Red")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptGreen(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Green"
         vc.configure(with: "Green")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptBrown(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Brown"
         vc.configure(with: "Brown")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptWhite(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "White"
         vc.configure(with: "White")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptBlack(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Black"
         vc.configure(with: "Black")
         navigationController?.pushViewController(vc, animated: true)
-      
     }
     func ArticlesTableViewCellDidTaptGray(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
@@ -277,23 +257,18 @@ extension ColorsViewController: ArticlesTableViewCellDelegate {
         vc.configure(with: "Gray")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptMix(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Mix"
         vc.configure(with: "Mix")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTaptOther(_: ArticlesTableViewCell) {
         let vc = ColorsResultsViewController()
         vc.title = "Other"
         vc.configure(with: "Other")
         navigationController?.pushViewController(vc, animated: true)
-        
     }
-        
-    
     func ArticlesTableViewCellDidTapjeans(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()
         vc.title = "Jeans"
@@ -307,35 +282,30 @@ extension ColorsViewController: ArticlesTableViewCellDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-   
     func ArticlesTableViewCellDidTapshirt(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()
         vc.title = "Shirts"
         vc.configure(with: "shirt")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTapcoat(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()
         vc.title = "Coats"
         vc.configure(with: "coat")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTapjacket(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()
         vc.title = "Jackets"
         vc.configure(with: "jacket")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTapdress(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()
         vc.title = "Dresses"
         vc.configure(with: "Dress")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func ArticlesTableViewCellDidTapskirt(_: ArticlesTableViewCell) {
         let vc = GarmentsSearchResultViewController()
         vc.title = "Skirts"
@@ -348,13 +318,4 @@ extension ColorsViewController: ArticlesTableViewCellDelegate {
         vc.configure(with: "pants")
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    
-//    func ArticlesTableViewCellDidTaptblue(_: ArticlesTableViewCell) {
-//        let vc = ColorsResultsViewController()
-//        vc.title = "Blue"
-//        vc.configure(with: "Blue")
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
 }

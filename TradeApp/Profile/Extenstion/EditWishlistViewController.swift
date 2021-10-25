@@ -11,7 +11,7 @@ class EditWishlistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Edit Wishlist"
+        navigationItem.title = "Edit Wish List"
         configureNavigationBar()
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
@@ -49,7 +49,6 @@ class EditWishlistViewController: UIViewController {
         field.layer.cornerRadius = 12
         field.layer.borderColor = UIColor.black.cgColor
         
-        
         let email = UserDefaults.standard.value(forKey: "email") as? String
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email!)
         
@@ -69,7 +68,6 @@ class EditWishlistViewController: UIViewController {
         return tableView
     }()
     
-    
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancel))
@@ -78,9 +76,7 @@ class EditWishlistViewController: UIViewController {
     private func explanationHeader()-> UIView {
         let header = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: view.height/4.5).integral)
         
-        
         header.addSubview(explanation)
-        
         
         explanation.layer.masksToBounds = true
         explanation.tintColor = .label
@@ -131,7 +127,6 @@ extension EditWishlistViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier) as! EmptyTableViewCell
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -140,6 +135,5 @@ extension EditWishlistViewController: UITableViewDelegate, UITableViewDataSource
         }
         return view.height/2
     }
-    
 }
 

@@ -16,7 +16,6 @@ class PhotoPostCollectionViewCell: UICollectionViewCell {
     var post: PostInfo? {
         
         didSet {
-            
             guard let NSUUID = post?.postImageNSUUID else {
                 return
             }
@@ -57,6 +56,4 @@ class PhotoPostCollectionViewCell: UICollectionViewCell {
             super.layoutSubviews()
             postImageView.frame = contentView.bounds
         }
-    
-    
 }

@@ -23,47 +23,19 @@ class ColorsResultsViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-//        fetchBlue()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
-//    func fetchBlue() {
-//
-//    DatabaseManager.database.child("color").child("Blue").observe(.childAdded, with: {
-//        (snapshot) in
-//
-//        let postId = snapshot.key
-//
-//        DatabaseManager.database.child("posts").child(postId).observeSingleEvent(of: .value, with: { snapshot in
-//            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
-//                return
-//            }
-//
-//            let post = PostInfo(postId: postId, dictionary: dictionary)
-//
-//            self.results.append(post)
-//
-//
-//            print("Post data\(post)")
-//
-//            self.tableView.reloadData()
-//        })
-//    })
-//    }
-    
     public func configure(with model: String)
     
     {
         let color = model
         DatabaseManager.database.child("Search").child("color").child(color).observe(.childAdded, with: {
             (snapshot) in
-            
             let postId = snapshot.key
-            
             DatabaseManager.database.child("posts").child(postId).observeSingleEvent(of: .value, with: { snapshot in
                 guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
                     return
@@ -79,7 +51,6 @@ class ColorsResultsViewController: UIViewController {
             })
         })
     }
-    
 }
 
 extension ColorsResultsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -95,13 +66,12 @@ extension ColorsResultsViewController: UITableViewDelegate, UITableViewDataSourc
                 return
             }
             print("snapshot \(snapshot)")
-
+            
             if snap == "gone" {
                 print("Item is gone")
                 cell.postImage.layer.opacity = 0.5
             }
-            print("Item is open")
-
+             print("Item is open")
         })
         return cell
     }
@@ -118,10 +88,6 @@ extension ColorsResultsViewController: UITableViewDelegate, UITableViewDataSourc
             let vc = ClickOnePostViewController(with: safeEmail, username: username!)
             vc.post = self.results[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
-            
         })
-        
     }
-    
-    
 }

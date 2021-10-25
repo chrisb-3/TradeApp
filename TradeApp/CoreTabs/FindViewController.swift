@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class FindViewController: UIViewController {
     
     private let tableView: UITableView = {
@@ -17,26 +16,18 @@ class FindViewController: UIViewController {
     }()
     
     public var buttons = [Buttons]()
-    
-    
     private func createButtonArray() -> [Buttons] {
         
         var findButtons: [Buttons] = []
-//        let yellow = UIImage(named: "yellow")!
-//        let blue = UIImage(named: "blue")!
-//        let brown = UIImage(named: "brown")!
-//        let pink = UIImage(named: "pink")!
-//        let red = UIImage(named: "red")!
-//        let gray = UIImage(named: "gray")!
-//        let users = UIImage(named: "people")!
-//
+        
+        /// images in the assets file
         let garments = UIImage(named: "Shirts")!
         let gender = UIImage(named: "Clouds")!
         let color = UIImage(named: "pink_shirts")!
         let itemState = UIImage(named: "jeans")!
         let usersImage = UIImage(named: "keyboard")!
         let all = UIImage(named: "brown_shirts")!
-
+        
         let b1 = Buttons(backgroundImage: garments, buttonLabel: "Garments",
                          handler: {[weak self] in
             self?.didTapGarments()
@@ -51,12 +42,12 @@ class FindViewController: UIViewController {
                          , handler: {[weak self] in
             self?.didTapColor()
         }, action: #selector(didTapColor))
-
+        
         let b4 = Buttons(backgroundImage: itemState, buttonLabel: "Item State"
                          , handler: {[weak self] in
             self?.didTapItemState()
         }, action: #selector(didTapItemState))
-
+        
         let b5 = Buttons(backgroundImage: usersImage, buttonLabel: "Users",
                          handler: {[weak self] in
             self?.didTapUsers()
@@ -67,17 +58,15 @@ class FindViewController: UIViewController {
             self?.didTapAll()
         }, action: #selector(didTapAll))
         
-    
         findButtons.append(b1)
         findButtons.append(b2)
         findButtons.append(b3)
         findButtons.append(b4)
         findButtons.append(b5)
         findButtons.append(b6)
-       
+        
         return findButtons
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,41 +75,32 @@ class FindViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         buttons = createButtonArray()
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
-
-        
     }
-
-
+    
     @objc func didTapGarments() {
         let vc = GarmentsViewController()
         vc.title = "Garments"
         navigationController?.pushViewController(vc, animated: true)
     }
-
     @objc func didTapColor() {
         let vc = ColorsViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-
     @objc func didTapGender() {
         let vc = GenderViewController()
         vc.title = "Gender"
         navigationController?.pushViewController(vc, animated: true)
     }
-
     @objc func didTapItemState() {
         let vc = StateViewController()
         vc.title = "Item State"
         navigationController?.pushViewController(vc, animated: true)
     }
-
-
     @objc func didTapAll() {
         let vc = HomeViewController()
         vc.title = "All"
@@ -132,9 +112,7 @@ class FindViewController: UIViewController {
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .fullScreen
         navigationController?.present(navVC, animated: true)
-        
     }
-    
 }
 
 extension FindViewController: UITableViewDelegate, UITableViewDataSource {
@@ -154,7 +132,6 @@ extension FindViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = buttons[indexPath.row]
         model.handler()
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -165,13 +142,11 @@ extension FindViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FindViewController: FindTableViewCellDelegate {
     
-    
     func FindViewDidTapUsers(_: FindTableViewCell) {
         let vc = UsersViewController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .fullScreen
         navigationController?.present(navVC, animated: true)
-        
     }
     func FindViewDidTapGarments(_: FindTableViewCell) {
         let vc = GarmentsViewController()
@@ -179,36 +154,29 @@ extension FindViewController: FindTableViewCellDelegate {
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func FindViewDidTapColor(_: FindTableViewCell) {
         let vc = ColorsViewController()
         vc.title = "Colors"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     func FindViewDidTapGender(_: FindTableViewCell) {
         let vc = GenderViewController()
         vc.title = "Gender"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-
     func FindViewDidTapItemState(_: FindTableViewCell) {
         let vc = StateViewController()
         vc.title = "Item State"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-
     func FindViewDidTapAll(_: FindTableViewCell) {
         let vc = HomeViewController()
         vc.title = "All"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-
-
 }
 

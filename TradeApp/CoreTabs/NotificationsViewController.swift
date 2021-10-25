@@ -5,7 +5,6 @@
 //  Created by Christina Braun on 28.08.21.
 //
 
-
 import UIKit
 import FirebaseAuth
 import JGProgressHUD
@@ -23,7 +22,7 @@ class NotificationsViewController: UIViewController {
                        forCellReuseIdentifier: ConversationTableViewCell.identifier)
         return table
     }()
-
+    
     private let noConversationsLabel: UILabel = {
         let label = UILabel()
         label.text = "No conversations yet"
@@ -50,17 +49,15 @@ class NotificationsViewController: UIViewController {
             return
         }
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
-
-        selfMail = safeEmail
-
-        print("email: \(selfMail)")
-        print("MESSAGE : \(latestMessage)")
         
+        selfMail = safeEmail
+        
+        print("email: \(selfMail)")
+        print("message : \(latestMessage)")
     }
     
     private var selfMail: String = "_"
     var latestMessage: String = "_"
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -78,16 +75,13 @@ class NotificationsViewController: UIViewController {
         DatabaseManager.database.child("conversation_information").child(selfMail).child("latest_Message").observe(.value, with: {snapshot in
             let message = snapshot.value as? String
             print(message)
-            if message == nil {
-                print("no message")
+            if message == nil { print("no message")
             }
             else {
-            self.latestMessage = message!
+                self.latestMessage = message!
             }
             self.tableView.reloadData()
-            
         } )
-        
     }
     
     private func fetchConvos() {
@@ -97,13 +91,11 @@ class NotificationsViewController: UIViewController {
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         self.tableView.isHidden = true
         self.noConversationsLabel.isHidden = false
-                print("starting listing convos...")
+        print("starting listing convos...")
         
         DatabaseManager.database.child("Emails").child(safeEmail).child("conversations").observe(.childAdded, with: {
             (snapshot) in
             
-            print("test")
-
             let posterEmails = snapshot.key
             
             print(posterEmails)
@@ -111,15 +103,13 @@ class NotificationsViewController: UIViewController {
             print("all chaters: \(posterEmails)")
             
             if posterEmails == String() {
-                print("test")
-
-                            print("snapshot == nil")
-                            self.tableView.isHidden = true
-                            self.noConversationsLabel.isHidden = false
-                        }
-
+                
+                print("snapshot == nil")
+                self.tableView.isHidden = true
+                self.noConversationsLabel.isHidden = false
+            }
+            
             else {
-                print("test")
                 print("snapshot not nil")
                 print(posterEmails)
                 self.tableView.isHidden = false
@@ -140,19 +130,12 @@ class NotificationsViewController: UIViewController {
                         let convo = Convo(id: ids, dictionary: dictionary)
                         
                         self.allConvos.append(convo)
-                        
                         self.tableView.reloadData()
-                        
                     })
-                    
                 })
-                
             }
-            
         })
-        
     }
-    
 }
 
 extension NotificationsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -160,11 +143,10 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         return allConvos.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let model = allConvos[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier,
                                                  for: indexPath) as! ConversationTableViewCell
         cell.configureMessage(with: latestMessage)
-
+        
         cell.chat = allConvos[indexPath.row]
         return cell
     }

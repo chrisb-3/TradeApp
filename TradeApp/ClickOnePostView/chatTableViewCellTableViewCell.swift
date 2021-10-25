@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 protocol chatTableViewCellDelegatge: AnyObject {
     func DidTapChat()
 }
@@ -16,8 +15,8 @@ class chatTableViewCell: UITableViewCell {
     static let identifier = "chatTableViewCell"
     
     weak var delegate: chatTableViewCellDelegatge?
-
-     let chatButton: UIButton = {
+    
+    let chatButton: UIButton = {
         let button = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .light)
         let image = UIImage(systemName: "bubble.left.and.bubble.right", withConfiguration: config )
@@ -44,15 +43,11 @@ class chatTableViewCell: UITableViewCell {
                                   y: 5,
                                   width: height-10,
                                   height: height-10)
-        
     }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
     }
-    
     @objc private func didTapStartConversation() {
         delegate?.DidTapChat()
     }
-
 }

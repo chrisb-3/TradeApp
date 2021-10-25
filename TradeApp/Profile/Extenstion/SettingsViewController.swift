@@ -7,8 +7,6 @@
 
 
 import UIKit
-import FirebaseAuth
-
 
 /// shows user settings
 final class SettingsViewController: UIViewController {
@@ -31,31 +29,25 @@ final class SettingsViewController: UIViewController {
         configureModels()
 
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-
-    
     private func configureModels(){
         
         data.append([
-        SettingCellModel(title: "Edit Wishlist") {[weak self] in
+        SettingCellModel(title: "Edit Wish List") {[weak self] in
             self?.didTapEditWishlist()
         }
         ])
-                        
         data.append([
             SettingCellModel(title: "Edit Profile") {[weak self] in
                 self?.didTapEditProfile()
             },
-            
             SettingCellModel(title: "App Information") {[weak self] in
                 self?.didTapAppInfo()
             }
         ])
-        
         data.append([
             SettingCellModel(title: "Logout", handler: {[weak self] in
                 self?.didTapLogout()
@@ -63,99 +55,6 @@ final class SettingsViewController: UIViewController {
             )
         ])
     }
-    
-//    private func didTapLogout() {
-//        let actionSheet = UIAlertController(title: "Log Out",
-//                                            message: "Are you sure you want to log out?",
-//                                            preferredStyle: .actionSheet)
-//        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//        actionSheet.addAction(UIAlertAction(title: "Log Out", style: .destructive , handler: {_ in
-//
-////            AuthManager.shared.logOut(completion: { success in
-////                DispatchQueue.main.async {
-////                    if success {
-////                        //present log in
-////                        let loginVC = LoginViewController()
-////                        loginVC.modalPresentationStyle = .fullScreen
-////                        self.present(loginVC, animated: true) {
-//////                            self.navigationController?.popViewController(animated: false)
-//////                            self.tabBarController?.selectedIndex = 0
-////                            self.navigationController?.popToRootViewController(animated: false)
-////                            self.tabBarController?.selectedIndex = 0
-////                        }
-////                    }
-////
-////                    else {
-////                        //error occured
-////                        fatalError("Could not log out user")
-////                    }
-////                }
-////
-////            })
-//
-//            do {
-//                try FirebaseAuth.Auth.auth().signOut()
-//
-//                let vc = LoginViewController()
-//                let nav = UINavigationController(rootViewController: vc)
-//                nav.modalPresentationStyle = .fullScreen
-//                self.present(nav, animated: true)
-//            }
-//            catch {
-//                print("Failed to log out")
-//            }
-//
-//        }))
-//
-//        actionSheet.popoverPresentationController?.sourceView = tableView
-//        actionSheet.popoverPresentationController?.sourceRect = tableView.bounds
-//        present(actionSheet, animated: true)
-//
-////
-////
-////
-////        let actionSheet = UIAlertController(title: "Log Out",
-////                                            message: "Do you want to log out?",
-////                                            preferredStyle: .actionSheet)
-////
-////        actionSheet.addAction(UIAlertAction(title: "Cancel",
-////                                            style: .cancel,
-////                                            handler: nil))
-////        actionSheet.addAction(UIAlertAction(title: "Log Out",
-////                                            style: .destructive, //red
-////                                            handler: { [weak self] _ in
-////                                                guard let strongSelf = self else
-////                                                {
-////                                                    return
-////                                                }
-////                                                UserDefaults.standard.set(nil, forKey: "email")
-////                                                UserDefaults.standard.set(nil, forKey: "username")
-////                                                AuthManager.shared.logOut(completion: { success in
-////                                                    DispatchQueue.main.async {
-////                                                        if success {
-//////                                                            let vc = HomeViewController()
-//////                                                            let nav = UINavigationController(rootViewController: vc)
-//////                                                            nav.modalPresentationStyle = .overCurrentContext
-////////                                                            strongSelf.present(nav, animated: false)
-//////                                                            strongSelf.present(nav, animated: true)
-//////
-//////                                                            let vc1 = HomeViewController()
-////////                                                            let nav1 = UINavigationController(rootViewController: vc1)
-//////                                                            self?.navigationController?.show(vc1, sender: nil)
-//////
-////                                                            let vc = LoginViewController()
-////                                                            let nav = UINavigationController(rootViewController: vc)
-////                                                            nav.modalPresentationStyle = .fullScreen
-////                                                            strongSelf.present(nav, animated: true)
-////                                                        }
-////                                                        else {
-////                                                            print("could not log out user")
-////                                                        }
-////                                                    }
-////                                                })
-////                                            }))
-////        present(actionSheet, animated: true)
-//    }
     
     private func didTapLogout() {
     let actionSheet = UIAlertController(title: "Log Out",
@@ -174,9 +73,11 @@ final class SettingsViewController: UIViewController {
                                                     }
                                                     UserDefaults.standard.set(nil, forKey: "email")
                                                     UserDefaults.standard.set(nil, forKey: "username")
+                let username = UserDefaults.standard.value(forKey: "username")
                                                     AuthManager.shared.logOut(completion: { success in
                                                         DispatchQueue.main.async {
                                                             if success {
+                                                                print("log out as \(username)")
                                                                 let vc = LoginViewController()
                                                                 let nav = UINavigationController(rootViewController: vc)
                                                                 nav.modalPresentationStyle = .fullScreen
@@ -209,7 +110,6 @@ final class SettingsViewController: UIViewController {
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
     }
-    
 }
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -233,6 +133,4 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let model = data[indexPath.section][indexPath.row] // find which box in what section and what row
         model.handler() // at section x and row y do what is coded for handler
     }
-
-
 }

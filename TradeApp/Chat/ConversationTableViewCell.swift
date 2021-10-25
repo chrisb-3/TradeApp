@@ -7,9 +7,7 @@
 
 import UIKit
 import SDWebImage
-
 class ConversationTableViewCell: UITableViewCell {
-    
     static let identifier = "ConversationTableViewCell"
     
     var chat: Convo? {
@@ -18,19 +16,12 @@ class ConversationTableViewCell: UITableViewCell {
             guard let otherUsername = chat?.username! else {
                 return
             }
-            guard let selfMail = chat?.selfUserEmail! else {
-                return
-            }
             guard let otherImage = chat?.otherImage!  else {
-                return
-            }
-            guard let selfImage = chat?.selfImage!  else {
                 return
             }
             guard let message = chat?.latestMessage! else {
                 return
             }
-            
             
             userNameLabel.text = otherUsername
             userMessageLabel.text = message
@@ -51,9 +42,7 @@ class ConversationTableViewCell: UITableViewCell {
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-//        imageView.layer.cornerRadius = 50
         imageView.layer.masksToBounds = true
-//        imageView.layer.cornerRadius = imageView.height/2
         return imageView
     }()
     
@@ -84,13 +73,11 @@ class ConversationTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
         userImageView.frame = CGRect(x: 10,
                                      y: 10,
                                      width: 100,
                                      height: 100)
         userImageView.layer.cornerRadius = userImageView.width/2
-        
         userNameLabel.frame = CGRect(x: userImageView.right + 10,
                                      y: 10,
                                      width: contentView.width - 20 - userImageView.width,
@@ -99,30 +86,8 @@ class ConversationTableViewCell: UITableViewCell {
                                         y: userNameLabel.bottom + 10,
                                         width: contentView.width - 20 - userImageView.width,
                                         height: (contentView.height - 20)/2)
-        
     }
     public func configureMessage(with message: String) {
         self.userMessageLabel.text = message
     }
-    
-//    public func  configure(with model: Convo) {
-////        self.userMessageLabel.text = model.latestMessage
-//        self.userNameLabel.text = model.username
-//
-//        let path = "images/\(model.otherUserEmail)_profile_picture.png"
-//        StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
-//            switch result {
-//            case .success(let url):
-//
-//                DispatchQueue.main.async { // main thread
-//                self?.userImageView.sd_setImage(with: url, completed: nil) // add the image to the usrer image circle in the table view
-//                }
-//
-//            case .failure(let error):
-//            print("failed to get image url: \(error)")
-//
-//            }
-//        })
-//    }
-    
 }

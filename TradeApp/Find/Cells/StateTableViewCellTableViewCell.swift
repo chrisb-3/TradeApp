@@ -12,18 +12,14 @@ protocol StateTableViewCellDelegate: AnyObject  {
     func StateTableViewCellDidTapBad(_: StateTableViewCell)
     func StateTableViewCellDidTapNew(_: StateTableViewCell)
     func StateTableViewCellDidTapOld(_: StateTableViewCell)
-//    func StateTableViewCellDidTapUsed(_: StateTableViewCell)
     func StateTableViewCellDidTapVeryGoodShape(_: StateTableViewCell)
 }
 
 class StateTableViewCell: UITableViewCell {
 
     weak var delegate: StateTableViewCellDelegate?
-
     static let identifier = "StateTableViewCell"
     
-//    var searchData: SearchData?
-
     private let stateButton: UIButton = {
         let button = UIButton()
         button.layer.masksToBounds = true
@@ -48,8 +44,6 @@ class StateTableViewCell: UITableViewCell {
                                 width: width-20,
                                 height: height-10)
     }
-
-//    public func configure(with model: StateButtons) {
         public func configure(with model: ArticleButtons) {
         self.stateButton.setTitle(model.buttonLabel, for: .normal)
         self.stateButton.backgroundColor = model.backgroundColor
@@ -65,10 +59,6 @@ class StateTableViewCell: UITableViewCell {
         print("Button clicked")
         delegate?.StateTableViewCellDidTapOld(self)
     }
-//    @objc func didTapUsed() {
-//        print("Button clicked")
-//        delegate?.StateTableViewCellDidTapUsed(self)
-//    }
     @objc func didTapVeryGoodShape() {
         print("Button clicked")
         delegate?.StateTableViewCellDidTapVeryGoodShape(self)

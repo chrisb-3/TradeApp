@@ -9,7 +9,7 @@
 import UIKit
 
 class WishViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(list)
@@ -22,7 +22,7 @@ class WishViewController: UIViewController {
         label.numberOfLines = 0
         label.layer.masksToBounds = true
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-       
+        
         return label
     }()
     
@@ -41,19 +41,15 @@ class WishViewController: UIViewController {
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 20, weight: .regular)
         
-        
         return label
     }()
-//
     public func configure(with model: String){
         
-       
         DatabaseManager.database.child("Emails").child(model).child("Wishlist").observeSingleEvent(of: .value, with: {
             snapshot in
             guard let listResult = snapshot.value as? String else {
                 return
             }
-            
             self.list.text = listResult
         })
         DatabaseManager.database.child("Emails").child(model).child("username").observeSingleEvent(of: .value, with: {
@@ -61,9 +57,8 @@ class WishViewController: UIViewController {
             guard let username = snapshot.value as? String else {
                 return
             }
-            let text = "'s Wishlist: "
+            let text = "'s Wish List: "
             self.usernameAndTextLabel.text = username+text
-           
         })
     }
     

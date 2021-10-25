@@ -10,7 +10,6 @@ import UIKit
 class RecomandationViewController: UIViewController {
     
     var recomandations = [Recommend]()
-//    var count = Int()
     
     let noResultsLabel: UILabel = {
         let label = UILabel()
@@ -26,7 +25,6 @@ class RecomandationViewController: UIViewController {
         let table = UITableView()
         table.isHidden = false
         table.register(RecomandationTableViewCell.self, forCellReuseIdentifier: RecomandationTableViewCell.identifier)
-//        table.register(ExtraRecomendTableViewCell.self, forCellReuseIdentifier: ExtraRecomendTableViewCell.identifier)
         return table
     }()
     
@@ -38,19 +36,7 @@ class RecomandationViewController: UIViewController {
         tableView.dataSource = self
         fetchRecomandations()
         view.backgroundColor = .systemBackground
-//        checkRecomandations()
     }
-    
-//    func checkRecomandations() {
-//        if recomandations.count == 0  {
-//            noResultsLabel.isHidden = false
-//            tableView.isHidden = true
-//    }
-//        else{
-//            noResultsLabel.isHidden = true
-//            tableView.isHidden = false
-//        }
-//}
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -59,7 +45,6 @@ class RecomandationViewController: UIViewController {
                                       y: (view.height-200)/2,
                                       width: view.width/2,
                                       height: 200)
-        
     }
     
     func fetchRecomandations() {
@@ -210,15 +195,11 @@ class RecomandationViewController: UIViewController {
 //                                })
                                 
                             }
-                            
                         })
                     })
-                    
                 })
-                
             })
         })
-        
     }
 }
 
@@ -231,7 +212,6 @@ extension RecomandationViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.row != 1 {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecomandationTableViewCell.identifier, for: indexPath) as! RecomandationTableViewCell
         cell.post = recomandations[indexPath.row]
             return cell
@@ -257,32 +237,32 @@ extension RecomandationViewController: UITableViewDelegate, UITableViewDataSourc
 //        else {
         DatabaseManager.database.child("posts").child(recomandations[indexPath.row].otherId).child("poster_emial").observeSingleEvent(of: .value, with: { snapshot in
             guard let otherEmail = snapshot.value as? String else {
-              return
+                return
             }
             DatabaseManager.database.child("Emails").child(otherEmail).child("username").observeSingleEvent(of: .value, with: { snapshot in
-                        guard let username = snapshot.value as? String else {
-                            return
-                        }
-                        print(username)
-            
+                guard let username = snapshot.value as? String else {
+                    return
+                }
+                print(username)
+                
                 DatabaseManager.database.child("posts").child(self.recomandations[indexPath.row].otherId).observeSingleEvent(of: .value, with: { snapshot in
-                                guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
-                                    return
-                                }
-                            print(dictionary)
+                    guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
+                        return
+                    }
+                    print(dictionary)
                     
                     tableView.deselectRow(at: indexPath, animated: true)
-        let vc = ClickOnePostViewController(with: otherEmail, username: username)
+                    let vc = ClickOnePostViewController(with: otherEmail, username: username)
                     let post = PostInfo(postId: self.recomandations[indexPath.row].otherId , dictionary: dictionary)
-vc.post = post
-self.navigationController?.pushViewController(vc, animated: true)
+                    vc.post = post
+                    self.navigationController?.pushViewController(vc, animated: true)
                     
-                            })
-            
+                })
+                
             })
-
+            
         })
-//        }
+        //        }
     }
 }
 

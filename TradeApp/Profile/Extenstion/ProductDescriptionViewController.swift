@@ -8,11 +8,6 @@
 import UIKit
 import Firebase
 
-//struct LabelModels {
-//    let LabelText: String
-//    let placeholder: String
-//}
-
 ///textfields and image View to add a post
 class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     var pickerViewColor = UIPickerView()
@@ -24,7 +19,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: EmptyTableViewCell.identifier)
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
     
@@ -133,7 +128,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    
     
     let size: UITextField = {
         let field = UITextField()
@@ -278,7 +272,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         "good","bad","new","old","very good shape","other"
     ]
     
-    
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(didTapPost))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancel))
@@ -323,17 +316,12 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
         imagePhoto.addGestureRecognizer(gesture)
         
     }
-    
-    
     /// header with selected Image
     private func descriptionHeader()-> UIView {
         let header = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: view.height/2).integral)
         
-        
         header.addSubview(imagePhoto)
         header.addSubview(AddImageLabel)
-        
-        
         
         imagePhoto.frame = CGRect(x: 25,
                                   y: 20,
@@ -473,7 +461,6 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
                                                      y: exchangeWish.bottom+5,
                                                      width: view.width-20-productTitleLabel.width,
                                                      height: productTitleLabel.height)
-        
         return descriptiontextFields
     }
     
@@ -481,19 +468,16 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
-        
     }
     
     private func alert (message: String) {
         let alert = UIAlertController(title: "Error", message: message , preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        
         present(alert, animated: true)
     }
     
     @objc private func didTapPost() {
-        print("handle did tap post")
-        
+        print("posting")
         guard
             let postImage = imagePhoto.image,
             let productTitle = productTitle.text,
@@ -507,9 +491,7 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
             let productState = productState.text,
             let aditionalInfo = aditionalInformationTextField.text,
             
-            
-            
-            !productTitle.isEmpty,
+                !productTitle.isEmpty,
             !gender.isEmpty,
             !city.isEmpty,
             !country.isEmpty,
@@ -521,11 +503,9 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
             alert(message: "Please fill out all fields")
             return
         }
-        
         guard let data = postImage.pngData() else {
             return
         }
-        
         let filename = NSUUID().uuidString
         
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
@@ -548,24 +528,22 @@ class ProductDescriptionViewController: UIViewController, UITextFieldDelegate {
                                 productState: productState,
                                 aditionalInformation: aditionalInfo,
                                 completion: { result in
-                                    switch result {
-                                    /// either failure or success
-                                    case.success(let downloadUrl):
-                                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
-                                        print(downloadUrl)
-                                    ///upload url to database
-                                    case.failure(let error):
-                                        print("Storage manage error: \(error)")
-                                    }
-                                })
+            switch result {
+                /// either failure or success
+            case.success(let downloadUrl):
+                UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                print(downloadUrl)
+                ///upload url to database
+            case.failure(let error):
+                print("Storage manage error: \(error)")
+            }
+        })
         
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @objc private func didTapCancel(){
-        
         navigationController?.dismiss(animated: true, completion: nil)
-        
     }
 }
 extension ProductDescriptionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -575,7 +553,6 @@ extension ProductDescriptionViewController: UIImagePickerControllerDelegate, UIN
         vc.sourceType = .photoLibrary
         vc.delegate = self
         vc.allowsEditing = true
-        
         present(vc, animated: true)
     }
     
@@ -597,9 +574,7 @@ extension ProductDescriptionViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier) as! EmptyTableViewCell
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier) as! EmptyTableViewCell
         return cell
         
     }
@@ -624,23 +599,18 @@ extension ProductDescriptionViewController: UIPickerViewDelegate, UIPickerViewDa
         }
         if pickerView == pickerViewState {
             return selectProductState.count
-            
         }
         if pickerView == pickerViewGender {
             return selectGender.count
-            
         }
         if pickerView == pickerViewExchange {
             return selectExchange.count
-            
         }
         if pickerView == pickerViewColor {
             return selectColors.count
-            
         }
         return 0
     }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == pickerViewColor {
@@ -671,17 +641,14 @@ extension ProductDescriptionViewController: UIPickerViewDelegate, UIPickerViewDa
             color.text = selectColors[row]
             color.resignFirstResponder()
         }
-        
         if pickerView == pickerViewGender {
             gender.text = selectGender[row]
             gender.resignFirstResponder()
         }
-        
         if pickerView == pickerViewState {
             productState.text = selectProductState[row]
             productState.resignFirstResponder()
         }
-        
         if pickerView == pickerViewExchange {
             exchangeWish.text = selectExchange[row]
             exchangeWish.resignFirstResponder()

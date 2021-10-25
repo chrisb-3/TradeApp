@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 class RecomandationTableViewCell: UITableViewCell {
     
     static let identifier = "RecomandationTableViewCell"
@@ -59,7 +58,7 @@ class RecomandationTableViewCell: UITableViewCell {
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .tertiaryLabel
         imageView.layer.cornerRadius = imageView.height/2
-
+        
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return imageView
         }
@@ -110,7 +109,6 @@ class RecomandationTableViewCell: UITableViewCell {
                 let safeOtherEmail = DatabaseManager.safeEmail(emailAdress: otherEmail)
                 print("email \(safeOtherEmail)")
                 
-                
                 let path = "images/\(safeOtherEmail)_profile_picture.png"
                 StorageManager.shared.downloadURL(for: path, completion: { result in
                     switch result {
@@ -123,7 +121,6 @@ class RecomandationTableViewCell: UITableViewCell {
                         print("failed to get url: \(error)")
                     }
                 })
-
                 
                 DatabaseManager.database.child("Emails").child(safeOtherEmail).child("username").observeSingleEvent(of: .value, with: { snapshot in
                     guard let otherUsername = snapshot.value as? String else {
@@ -153,7 +150,6 @@ class RecomandationTableViewCell: UITableViewCell {
                 self.otherTitel.text = article
             })
             
-            
             let path1 = "post_images/\(selfPostId)"
             StorageManager.shared.downloadURL(for: path1, completion: { result in
                 switch result {
@@ -178,21 +174,12 @@ class RecomandationTableViewCell: UITableViewCell {
                     print("failed to get url: \(error)")
                 }
             })
-            
-            
-            
-            
-            
-            
-            
             guard let username = UserDefaults.standard.value(forKey: "username") as? String else {
                 return
             }
             self.selfUsername.text = username
         }
-        
     }
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -223,25 +210,25 @@ class RecomandationTableViewCell: UITableViewCell {
                                           height: height/1.5)
         
         selfUsername.frame = CGRect(x: width/4-selfPostImageView.width/2+5,
-                                 y: 5,
-                                 width: width/2,
-                                 height: 15)
+                                    y: 5,
+                                    width: width/2,
+                                    height: 15)
         otherUsername.frame = CGRect(x: width/2+(width/4-otherPostImageView.width/2)+5,
                                      y: 5,
                                      width: width/2,
                                      height: 15)
         selfProfile.frame = CGRect(x: 10,
-                                 y: 5,
-                                 width: height/4,
-                                 height: height/4)
+                                   y: 5,
+                                   width: height/4,
+                                   height: height/4)
         selfProfile.layer.cornerRadius = selfProfile.height/2
-
+        
         otherProfile.frame = CGRect(x: width/2+10,
-                                     y: 5,
-                                     width: height/4,
-                                     height: height/4)
+                                    y: 5,
+                                    width: height/4,
+                                    height: height/4)
         otherProfile.layer.cornerRadius = otherProfile.height/2
-
+        
         selfTitel.frame = CGRect(x: width/4-selfPostImageView.width/2,
                                  y: selfPostImageView.bottom+5,
                                  width: width/2,
@@ -250,11 +237,9 @@ class RecomandationTableViewCell: UITableViewCell {
                                   y: otherPostImageView.bottom+5,
                                   width: width/2,
                                   height: 15)
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 class GenderSearchResultViewControllerViewController: UIViewController {
     
     private var genderResults = [PostInfo]()
@@ -16,7 +15,6 @@ class GenderSearchResultViewControllerViewController: UIViewController {
         table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         return table
     }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
@@ -24,12 +22,10 @@ class GenderSearchResultViewControllerViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
     
     public func configure(with model: String)
     
@@ -37,25 +33,18 @@ class GenderSearchResultViewControllerViewController: UIViewController {
         let gender = model
         DatabaseManager.database.child("Search").child("gender").child(gender).observe(.childAdded, with: {
             (snapshot) in
-            
             let postId = snapshot.key
-            
             DatabaseManager.database.child("posts").child(postId).observeSingleEvent(of: .value, with: { snapshot in
                 guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else {
                     return
                 }
-                
                 let post = PostInfo(postId: postId, dictionary: dictionary)
-                
                 self.genderResults.append(post)
-                
                 print("Post data\(post)")
-                
                 self.tableView.reloadData()
             })
         })
     }
-    
 }
 extension GenderSearchResultViewControllerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,13 +59,11 @@ extension GenderSearchResultViewControllerViewController: UITableViewDelegate, U
                 return
             }
             print("snapshot \(snapshot)")
-
             if snap == "gone" {
                 print("Item is gone")
                 cell.postImage.layer.opacity = 0.5
             }
             print("Item is open")
-
         })
         return cell
     }
@@ -85,7 +72,6 @@ extension GenderSearchResultViewControllerViewController: UITableViewDelegate, U
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let email = genderResults[indexPath.row].poster_emial!
-        
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         DatabaseManager.database.child("Emails").child(safeEmail).child("username").observeSingleEvent(of: .value, with: { snapshot in
             guard let username = snapshot.value as? String else {
@@ -94,8 +80,6 @@ extension GenderSearchResultViewControllerViewController: UITableViewDelegate, U
             let vc = ClickOnePostViewController(with: safeEmail, username: username)
             vc.post = self.genderResults[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
-            
         })
-        
     }
 }

@@ -6,15 +6,12 @@
 //
 
 import UIKit
-import FirebaseAuth
+//import FirebaseAuth
 import Firebase
-import FirebaseDatabase
 import JGProgressHUD
-
 class RegistrationViewController: UIViewController {
-    
     private let spinner = JGProgressHUD(style: .light)
-        
+    
     private let userProfileImage: UIImageView = {
         let image = UIImageView()
         image.image =  UIImage(systemName: "person.circle")
@@ -23,14 +20,12 @@ class RegistrationViewController: UIViewController {
         image.layer.masksToBounds = true
         return image
     }()
-    
     private let choosePhotoLabel: UIButton = {
         let button = UIButton()
         button.setTitleColor(.lightGray, for: .normal)
         button.setTitle("choose your profile photo", for: .normal)
         return button
     }()
-
     private let userNameField: UITextField = {
         let field = UITextField()
         field.placeholder = "username"
@@ -45,7 +40,6 @@ class RegistrationViewController: UIViewController {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    
     private let emailField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
@@ -63,7 +57,6 @@ class RegistrationViewController: UIViewController {
         field.layer.borderColor = UIColor.black.cgColor
         return field
     }()
-    
     private let passwordTextField: UITextField = {
         let field = UITextField()
         field.textContentType = .none
@@ -80,7 +73,6 @@ class RegistrationViewController: UIViewController {
         field.isSecureTextEntry = true // makes the text show up as dots
         return field
     }()
-
     private let registrationButton: UIButton = {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
@@ -90,25 +82,20 @@ class RegistrationViewController: UIViewController {
         button.layer.cornerRadius = 12
         return button
     }()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.clipsToBounds = true
         view.frame = view.bounds
-        
-        
         UserDefaults.standard.set(nil, forKey: "email") // save users email adress
         UserDefaults.standard.set(nil, forKey: "username")
-
+        
         registrationButton.addTarget(self,
-                              action: #selector(didTapRegistrationButton),
-                              for: .touchUpInside)
+                                     action: #selector(didTapRegistrationButton),
+                                     for: .touchUpInside)
         choosePhotoLabel.addTarget(self,
                                    action: #selector(didTapAddProfilePicture),
                                    for: .touchUpInside)
-        
         imagePickerController.delegate = self
         emailField.delegate = self
         userNameField.delegate = self
@@ -121,9 +108,8 @@ class RegistrationViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddProfilePicture))
         
         userProfileImage.addGestureRecognizer(gesture)
-
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let fieldWidth = view.width-50
@@ -162,8 +148,7 @@ class RegistrationViewController: UIViewController {
             height: 55)
     }
     
-    
-    private func addSubviews() {        
+    private func addSubviews() {
         view.addSubview(userProfileImage)
         view.addSubview(choosePhotoLabel)
         view.addSubview(userNameField)
@@ -177,12 +162,11 @@ class RegistrationViewController: UIViewController {
         userNameField.resignFirstResponder() // hide the keyboard
         emailField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-    
         
         guard let username = userNameField.text,
-        let email = emailField.text,
-        let password = passwordTextField.text,
-        !username.isEmpty, !email.isEmpty, !password.isEmpty
+              let email = emailField.text,
+              let password = passwordTextField.text,
+              !username.isEmpty, !email.isEmpty, !password.isEmpty
         else {
             registrationAlert(message: "Please fill out all fields")
             return
@@ -191,13 +175,12 @@ class RegistrationViewController: UIViewController {
             registrationAlert(message: "The password must contain more than 8 charakters")
             return
         }
-        
         spinner.show(in: view)
         
         // Firebase Registration
         DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
             guard let strongSelf = self else {
-              return
+                return
             }
             DispatchQueue.main.async {
                 strongSelf.spinner.dismiss()
@@ -211,53 +194,47 @@ class RegistrationViewController: UIViewController {
                 print("user exists")
                 return
             }
-
-
-
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult,error in // the user gets registerd with an email and a password
-            // data inserted into firebase Authentications
-            guard error == nil else {
-                let alert = UIAlertController(title: "registration Error", message: "email is already used or incorrect", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-                strongSelf.present(alert, animated: true)
-                print("error creating user")
-                return
-            }
-
-
-            let appUser = AppUser(userName: username,
-                                  emailAdress: email
-//                                  profileImage: imageURL
-            )
-
-            DatabaseManager.shared.addUserDataToFirebase(with: appUser, completion: {success in
-                if success {
-                    guard let image = strongSelf.userProfileImage.image, let data = image.pngData() else {
-                        return
-                    }
-
-                    let fileName = appUser.profilePictureFileName
-
-                    StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
-                        switch result {
-                        // either failure or success
-                        case.success(let downloadUrl):
-                            UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
-                            print(downloadUrl)
-
-                        case.failure(let error):
-                            print("Storage manage error: \(error)")
-                        }
-                    })
-
-                }
-            })
-        
-
-            UserDefaults.standard.set(email, forKey: "email") // save users email adress
-            UserDefaults.standard.set(username, forKey: "username")
             
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult,error in // the user gets registerd with an email and a password
+                // data inserted into firebase Authentications
+                guard error == nil else {
+                    let alert = UIAlertController(title: "registration Error", message: "email is already used or incorrect", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                    strongSelf.present(alert, animated: true)
+                    print("error creating user")
+                    return
+                }
+                let appUser = AppUser(userName: username,
+                                      emailAdress: email
+                )
+                DatabaseManager.shared.addUserDataToFirebase(with: appUser, completion: {success in
+                    if success {
+                        guard let image = strongSelf.userProfileImage.image, let data = image.pngData() else {
+                            return
+                        }
+                        
+                        let fileName = appUser.profilePictureFileName
+                        
+                        StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
+                            switch result {
+                                // either failure or success
+                            case.success(let downloadUrl):
+                                UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                print(downloadUrl)
+                                
+                            case.failure(let error):
+                                print("Storage manage error: \(error)")
+                            }
+                        })
+                        
+                    }
+                })
+                
+                
+                UserDefaults.standard.set(email, forKey: "email") // save users email adress
+                UserDefaults.standard.set(username, forKey: "username")
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             })
         })
     }
@@ -278,9 +255,9 @@ class RegistrationViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Choose Photo",
                                             style: .default,
                                             handler: { [weak self] _ in
-                                                self?.choosePhoto()
-                                            }))
-    present(actionSheet, animated: true)
+            self?.choosePhoto()
+        }))
+        present(actionSheet, animated: true)
         
     }
     
@@ -307,7 +284,7 @@ extension RegistrationViewController: UITextFieldDelegate {
 }
 
 extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     func choosePhoto() {
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
@@ -316,7 +293,7 @@ extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigat
         
         present(vc, animated: true)
     }
-
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
@@ -326,10 +303,7 @@ extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigat
         self.userProfileImage.image = selectedImage
         choosePhotoLabel.setTitle("edit profile image", for: .normal)
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { // when cancel is clicked
         picker.dismiss(animated: true, completion: nil)
-    }
-    
-    
-}
+    }}

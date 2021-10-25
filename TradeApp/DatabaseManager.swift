@@ -17,32 +17,28 @@ final class DatabaseManager {
     
     static func safeEmail(emailAdress: String ) -> String {
         var safeEmail = emailAdress.replacingOccurrences(of: "." , with: "_")
-         safeEmail = safeEmail.replacingOccurrences(of: "@" , with: "_" )
+        safeEmail = safeEmail.replacingOccurrences(of: "@" , with: "_" )
         return safeEmail
     }
-
-}
-extension DatabaseManager {
+    
+    ///function needed for searching other useres
     public func getAllUsers(completion: @escaping (Result<[[String: String]],Error>) -> Void) {
         DatabaseManager.database.child("users").observeSingleEvent(of: .value, with: {snapshot in
             guard let value = snapshot.value as? [[String: String]] else {
                 completion(.failure(DatabaseError.failedToFetch))
                 return
             }
-            completion(.success(value)) 
+            completion(.success(value))
         })
     }
     
-    
+    ///a new conversation is made. In the database in the branch of the coversation id an array is added with the type, content, sender and username
     private func finishCreatingConversation(username: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
-        
-        let messageDate = firstMessage.sentDate
-//        let dateString = ChatViewController.dateFormatter.string(from: messageDate)
         
         var message = ""
         
         switch firstMessage.kind {
-        
+            
         case .text(let messageText):
             message = messageText
         case .attributedText(_):
@@ -72,12 +68,10 @@ extension DatabaseManager {
         
         let currentUserEmail = DatabaseManager.safeEmail(emailAdress: email)
         
-        
         let collectionMessage: [String: Any] = [
             "id": firstMessage.messageId,
             "type": firstMessage.kind.messageKindString,
             "content": message,
-//            "date": dateString,
             "sender_email": currentUserEmail,
             "is_read": false,
             "username": username
@@ -92,13 +86,13 @@ extension DatabaseManager {
         
         DatabaseManager.database.child("\(conversationID)").setValue( value, withCompletionBlock: { error, _ in
             guard error == nil else {
-               completion(false)
+                completion(false)
                 return
             }
             completion(true)
         } )
-        
     }
+    
     public func gettAllMessages( with id: String, completion: @escaping (Result<[Message ], Error>) -> Void) {
         
         DatabaseManager.database.child("all_convos").child("\(id)").child("messages").observe( .value, with: { snapshot in
@@ -108,17 +102,9 @@ extension DatabaseManager {
             }
             
             let messages: [Message] = value.compactMap({ dictionary in
-                guard
-//                    let username = dictionary["username"] as? String,
-                    //                      let messagId = dictionary["id"] as? String,
-//                    let otherEmail = dictionary["otherUserEmail"] as? String,
-                    let content = dictionary["content"] as? String,
+                guard let content = dictionary["content"] as? String,
                     let senderEmail = dictionary["sender_email"] as? String
-//                    let otherUsername = dictionary["username"] as? String
-                    //                      let dateString = dictionary["date"] as? String,
-//                    let type = dictionary["type"] as? String
-                //                      let isRead = dictionary["is_read"] as? Bool,
-                //                      let date = ChatViewController.dateFormatter.date(from: dateString)
+                       
                 else {
                     return nil
                 }
@@ -126,7 +112,6 @@ extension DatabaseManager {
                 let sender = Sender(photoURL: "",
                                     senderId: senderEmail,
                                     displayName: "")
-//                                    displayName: otherUsername)
                 
                 return Message(sender: sender,
                                messageId: id,
@@ -136,12 +121,10 @@ extension DatabaseManager {
             completion(.success(messages))
         } )
     }
-
+    
     public func sendMessage(to conversationId: String, otherUserEmail: String, OtherUsername: String, newMessage: Message, completion: @escaping (Bool) -> Void) {
-        // add new message to messages in convId
-        //update sender latest message
-        //update reciver latest message
-                
+        
+        ///get messages in conversation
         DatabaseManager.database.child("all_convos").child(conversationId).child("messages").observeSingleEvent(of: .value, with: { snapshot in
             print("conversation: \(snapshot)")
             
@@ -149,7 +132,6 @@ extension DatabaseManager {
                 completion(false)
                 return
             }
-            
             var message = ""
             
             switch newMessage.kind {
@@ -159,10 +141,6 @@ extension DatabaseManager {
                 break
             case .photo(_):
                 break
-//            case .photo(let mediaItem):
-////                if let targetUrlString = mediaItem.url?.absoluteString{
-////                message = targetUrlString
-////                }
             case .video(_):
                 break
             case .location(_):
@@ -187,17 +165,13 @@ extension DatabaseManager {
             let currentEmail = DatabaseManager.safeEmail(emailAdress: myEmail)
             
             let collectionMessage: [String: Any] = [
-//                "id": newMessage.messageId,
                 "type": newMessage.kind.messageKindString,
                 "content": message,
-//                "date": dateString,
                 "username": OtherUsername,
                 "otherUserEmail": otherUserEmail,
                 "sender_email": currentEmail,
-//                "is_read": false,
-                
             ]
-            
+            /// add new message under conversation id
             currentMessage.append(collectionMessage)
             
             DatabaseManager.database.child("all_convos").child("\(conversationId)").child("messages").setValue(currentMessage) { error , _ in
@@ -209,19 +183,18 @@ extension DatabaseManager {
                 completion(true)
                 print("success")
             }
-            
         })
-       
     }
-    // check if a user with this emial already is registerd
+    
+    ///check if a user with this emial already is registerd
     public func userExists(with email: String,
                            completion: @escaping (Bool) -> Void) {  // will return true if user email does not exist. If returns true-> cant't use email
-
+        
         var safeEmail = email.replacingOccurrences(of: "." , with: "_")
         safeEmail = safeEmail.replacingOccurrences(of: "@" , with: "_" )
         
         DatabaseManager.database.child("Emails").child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
-            guard snapshot.value as? String != nil else { // in this snapshot, if value is a string then assign it
+            guard snapshot.value as? String != nil else {
                 
                 completion(false) // email doesn't exist yet. -> Create account
                 return
@@ -230,35 +203,30 @@ extension DatabaseManager {
             completion(true) // email already exists
         })
     }
-
+    
     public func addUserDataToFirebase(with user: AppUser, completion: @escaping (Bool) -> Void ) {
         
         DatabaseManager.database.child("Emails").child(user.safeEmail).setValue([
             "username": user.userName,
-//            "profile_data":  [
-//                "posts": "2",
-//                "points": "2",
-//                "sold": "3"
-//            ]
+            
         ], withCompletionBlock: { error, _ in
             guard error == nil else {
                 print("failed to wright to database")
                 completion(false)
                 return
             }
-                
-
+            
             DatabaseManager.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
                 if var userCollection = snapshot.value as? [[String: String]] {
-
+                    
                     //append to users dictionary
                     let newElement = [
                         "username": user.userName,
                         "email": user.safeEmail
-//                        "profile_image":
+                        //                        "profile_image":
                     ]
                     userCollection.append(newElement)
-
+                    
                     DatabaseManager.database.child("users").setValue(userCollection, withCompletionBlock: {error, _ in
                         guard error == nil else {
                             completion(false)
@@ -267,8 +235,8 @@ extension DatabaseManager {
                         completion(true)
                     })
                 }
-
-                //create aray/dictionary
+                
+                ///create aray/dictionary
                 else {
                     
                     let newCollecton: [[String: String]] =
@@ -276,34 +244,33 @@ extension DatabaseManager {
                         [
                             "username": user.userName,
                             "email": user.safeEmail
-//                            "porfileImage":
+                            //                            "porfileImage":
                         ]
                     ]
-
+                    
                     DatabaseManager.database.child("users").setValue(newCollecton, withCompletionBlock: {error, _ in
                         guard error == nil else {
                             completion(false)
                             return
                         }
-
                         completion(true)
-
                     })
                 }
             })
             
-            
         })
         
         DatabaseManager.database.child("usernames").child(user.userName).setValue([
-                                                "email": user.safeEmail
+            "email": user.safeEmail
         ]
         )
     }
     
+    //}
 }
 
-final class StorageManager {
+
+final class StorageManager { ///manages images
     
     static let shared = StorageManager()
     
@@ -336,38 +303,6 @@ final class StorageManager {
         
     }
     
-    public func uploadProfilePostImage(with data: Data, fileName: String, completion: @escaping UpladPictureCompletion) {
-        
-        storage.child("post_images/\(fileName)").putData(data, metadata: nil, completion: {metadata, error in
-            guard error == nil else {
-                //failed
-                print("failed to upload data to firebase for picture")
-                completion(.failure(StorageErrors.failedToUpload))
-                return
-            }
-            self.storage.child("post_images/\(fileName)").downloadURL(completion: {url, error in
-                guard let url = url else {
-                    print("failed to get download url")
-                    completion(.failure(StorageErrors.failedToGetDownloadUrl))
-                    return
-                }
-                
-                let urlString = url.absoluteString
-                print("download url returned: \(urlString)")
-                
-                guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-                    return
-                }
-                let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
-                
-//                Database.database().reference().child(safeEmail).child("posts").setValue("\(urlString)")
-                
-                completion(.success(urlString))
-            })
-        })
-        
-    }
-    
     /// Upload image in conversation
     public func uploaMessagePhoto (with data: Data, fileName: String, completion: @escaping UpladPictureCompletion) {
         
@@ -390,7 +325,6 @@ final class StorageManager {
                 completion(.success(urlString))
             })
         })
-        
     }
     
     public enum StorageErrors: Error {
@@ -398,23 +332,21 @@ final class StorageManager {
         case failedToGetDownloadUrl
     }
     
+    ///function for downloading url for images
     public func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {
         let reference = storage.child(path)
-                             
+        
         reference.downloadURL(completion: { url, error in
             guard let url = url, error == nil else {
                 completion(.failure(StorageErrors.failedToGetDownloadUrl))
                 return
-                    }
-                    completion(.success(url))
-            
+            }
+            completion(.success(url))
         })
     }
 }
 
-
 public typealias UpladPictureCompletion = (Result <String, Error> ) -> Void
-
 
 public func storeWishlistToFirebase(with list: String) {
     
@@ -426,7 +358,7 @@ public func storeWishlistToFirebase(with list: String) {
     DatabaseManager.database.child("Emails").child(safeEmail).child("Wishlist").setValue(list)
 }
 
-
+///adds post to database
 public func storePostDataToFirebase(with data: Data,
                                     
                                     fileName: String,
@@ -486,11 +418,9 @@ public func storePostDataToFirebase(with data: Data,
             
             Database.database().reference().child("Emails").child("\(safeEmail)").child("posts").child("\(postImageNSUUID)").setValue("\(postImageNSUUID)")
             
-            
-            
             Database.database().reference().child("all_posts").child("\(postImageNSUUID)").setValue("\(postImageNSUUID)")
             
-            
+            ///the following lines help for searching and finding posts later on
             /// colors
             if color == "Blue" {
                 DatabaseManager.database.child("Search").child("color").child("Blue").child(postImageNSUUID).setValue(postImageNSUUID)
@@ -498,46 +428,34 @@ public func storePostDataToFirebase(with data: Data,
             if color == "Pink" {
                 DatabaseManager.database.child("Search").child("color").child("Pink").child(postImageNSUUID).setValue(postImageNSUUID)
             }
-            
             if color == "Yellow" {
                 DatabaseManager.database.child("Search").child("color").child("Yellow").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
             if color == "Orange" {
                 DatabaseManager.database.child("Search").child("color").child("Orange").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
             if color == "Red" {
                 DatabaseManager.database.child("Search").child("color").child("Red").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
             if color == "Purple" {
                 DatabaseManager.database.child("Search").child("color").child("Purple").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
-            
             if color == "Green" {
                 DatabaseManager.database.child("Search").child("color").child("Green").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
             if color == "Brown" {
                 DatabaseManager.database.child("Search").child("color").child("Brown").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
             if color == "White" {
                 DatabaseManager.database.child("Search").child("color").child("White").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
-            
             if color == "Black" {
                 DatabaseManager.database.child("Search").child("color").child("Black").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
             if color == "Mix" {
                 DatabaseManager.database.child("Search").child("color").child("Mix").child(postImageNSUUID).setValue(postImageNSUUID)
-                
             }
-
+            
             ///Item states
             if  productState == "good" {
                 DatabaseManager.database.child("Search").child("Item_state").child("Good").child(postImageNSUUID).setValue(postImageNSUUID)
@@ -551,14 +469,9 @@ public func storePostDataToFirebase(with data: Data,
             if  productState == "old" {
                 DatabaseManager.database.child("Search").child("Item_state").child("Old").child(postImageNSUUID).setValue(postImageNSUUID)
             }
-//            if  productState == "used" {
-//                DatabaseManager.database.child("Search").child("Item_state").child("Used").child(postImageNSUUID).setValue(postImageNSUUID)
-//            }
             if  productState == "very good shape" {
                 DatabaseManager.database.child("Search").child("Item_state").child("very_good_shape").child(postImageNSUUID).setValue(postImageNSUUID)
             }
-            
-            
             
             /// garments
             if  articleType == "jeans" {
@@ -595,8 +508,6 @@ public func storePostDataToFirebase(with data: Data,
                 DatabaseManager.database.child("Search").child("Garments").child("other").child(postImageNSUUID).setValue(postImageNSUUID)
             }
             
-            
-            
             /// gender
             if  gender == "Male" {
                 DatabaseManager.database.child("Search").child("gender").child("Male").child(postImageNSUUID).setValue(postImageNSUUID)
@@ -610,9 +521,9 @@ public func storePostDataToFirebase(with data: Data,
             if  gender == "Any" {
                 DatabaseManager.database.child("Search").child("gender").child("Any").child(postImageNSUUID).setValue(postImageNSUUID)
             }
-        
+            
         })
-        })
+    })
     guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
         return
     }
@@ -624,24 +535,22 @@ public func storePostDataToFirebase(with data: Data,
     DatabaseManager.database.child("Emails").child(safeEmail).child("wishes").child(exchangeWish).child("email").setValue(safeEmail)
     DatabaseManager.database.child("Emails").child(safeEmail).child("has").child(articleType).child("email").setValue(safeEmail)
     
-    }
-        
-            public func createNewConvo( otherEmail: String,
-                                       myEmail: String) {
-                let id1 = "\(myEmail)"+"\(otherEmail)"
-                let id2 = "\(otherEmail)"+"\(myEmail)"
-                
-                DatabaseManager.database.child("Emails").child(myEmail).child("conversations").child(id1).setValue(id1)
-                DatabaseManager.database.child("Emails").child(myEmail).child("conversations").child(id2).setValue(id2)
-                
-                DatabaseManager.database.child("Emails").child(otherEmail).child("conversations").child(id1).setValue(id1)
-                DatabaseManager.database.child("Emails").child(otherEmail).child("conversations").child(id2).setValue(id2)
-            }
+}
 
+public func createNewConvo( otherEmail: String,
+                            myEmail: String) {
+    let id1 = "\(myEmail)"+"\(otherEmail)"
+    let id2 = "\(otherEmail)"+"\(myEmail)"
+    
+    DatabaseManager.database.child("Emails").child(myEmail).child("conversations").child(id1).setValue(id1)
+    DatabaseManager.database.child("Emails").child(myEmail).child("conversations").child(id2).setValue(id2)
+    
+    DatabaseManager.database.child("Emails").child(otherEmail).child("conversations").child(id1).setValue(id1)
+    DatabaseManager.database.child("Emails").child(otherEmail).child("conversations").child(id2).setValue(id2)
+}
 
+public enum StorageErrors: Error {
+    case failedToUpload
+    case failedToGetDownloadUrl
+}
 
-            public enum StorageErrors: Error {
-                case failedToUpload
-                case failedToGetDownloadUrl
-            }
-        

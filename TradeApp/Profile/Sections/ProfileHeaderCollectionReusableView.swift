@@ -257,26 +257,17 @@
 //    }
 //}
 
-
-
-
 import UIKit
-import FirebaseAuth
 import Firebase
 
-
 protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
-    
     func DidTapUserProfileImage(_ header: ProfileHeaderCollectionReusableView)
     func DidTapEditText(_header: ProfileHeaderCollectionReusableView)
-    
 }
 
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     static let identifier = "ProfileHeaderCollectionReusableView"
-    
-    
     
     public weak var delegate: ProfileHeaderCollectionReusableViewDelegate?
     
@@ -317,8 +308,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
                 print("failed to get url: \(error)")
             }
         })
-        
-        
         return image
     }()
     
@@ -345,44 +334,25 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         }
     }
     
-    //        func downloadImage(imageView: UIButton, url: URL) { // download the url
-    //            URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-    //                guard let data = data, error == nil else {
-    //                    return
-    //                }
-    //                DispatchQueue.main.async {
-    //                    let image = UIImage(data: data)
-    //                    imageView.setBackgroundImage(image, for: .normal)
-    //                }
-    //            }) .resume()
-    //        }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         clipsToBounds = true
         backgroundColor = .systemBackground
         addSubview(prfImage)
-        
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
         let  size = width/2-5
-        
         prfImage.frame = CGRect(x: width/4,
                                 y: 10,
                                 width: size,
                                 height: size)
-        
         prfImage.layer.cornerRadius = prfImage.width/2
-        
     }
 }

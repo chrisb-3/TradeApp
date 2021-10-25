@@ -5,19 +5,12 @@
 //  Created by Christina Braun on 28.08.21.
 //
 import UIKit
-import FirebaseAuth
-import FirebaseDatabase
-
 
 class UsersViewController: UIViewController {
     
     private var results = [[String: String]]()
-    
     private var hasfetched = false
-        
     private var users = [[String: String]]()
-        
-//    var userEmail: String?
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -34,7 +27,7 @@ class UsersViewController: UIViewController {
     }()
     
     let noResultsLabel: UILabel = {
-      let label = UILabel()
+        let label = UILabel()
         label.isHidden = true
         label.text = "no results"
         label.textAlignment = .center
@@ -48,10 +41,8 @@ class UsersViewController: UIViewController {
         title = "Search"
         view.addSubview(tableView)
         view.addSubview(noResultsLabel)
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
         view.backgroundColor = .white
         searchBar.delegate = self
         navigationController?.navigationBar.topItem?.titleView = searchBar
@@ -62,15 +53,14 @@ class UsersViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
         noResultsLabel.frame = CGRect(x: view.width/4,
-                                y: (view.height-200)/2,
-                                width: view.width/2,
-                                height: 200)
+                                      y: (view.height-200)/2,
+                                      width: view.width/2,
+                                      height: 200)
     }
     
     @objc private func dismissSelf() {
         dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension  UsersViewController: UITableViewDelegate, UITableViewDataSource {
@@ -82,7 +72,6 @@ extension  UsersViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserSearchTableViewCell.identifier, for: indexPath) as! UserSearchTableViewCell
         let name = results[indexPath.row]["username"]!
         cell.configure(with: name)
-        
         return cell
     }
     
@@ -101,16 +90,13 @@ extension  UsersViewController: UITableViewDelegate, UITableViewDataSource {
                 return
             }
             vc.maaail = email
-        vc.configure(username: name, email: email)
+            vc.configure(username: name, email: email)
             self.navigationController?.pushViewController(vc, animated: true)
-
         })
-        
     }
 }
 
 extension  UsersViewController: UISearchBarDelegate {
-
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
@@ -120,15 +106,11 @@ extension  UsersViewController: UISearchBarDelegate {
         results.removeAll()
         
         self.searchUsers(query: text)
-        
-        
     }
     
     func searchUsers(query: String) {
         if hasfetched {
-            
             filterUsers(with: query)
-            
         }
         
         else {
@@ -146,7 +128,6 @@ extension  UsersViewController: UISearchBarDelegate {
             })
             
         }
-        
     }
     
     func filterUsers(with term: String) {
@@ -159,12 +140,9 @@ extension  UsersViewController: UISearchBarDelegate {
             guard let username = $0["username"]?.lowercased(), username != selfName else {
                 return false
             }
-            
             return username.hasPrefix(term.lowercased())
         })
-        
         self.results = results
-        
         updateUI()
     }
     

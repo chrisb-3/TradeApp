@@ -9,7 +9,6 @@
 
 import UIKit
 import FirebaseDatabase
-
 class descriptionTableViewCell: UITableViewCell {
     
     static let identifier = "descriptionTableViewCell"
@@ -17,7 +16,6 @@ class descriptionTableViewCell: UITableViewCell {
     var postData: PostInfo? {
         
         didSet {
-    
             guard let NSUUID = postData?.postImageNSUUID else {
                 return
             }
@@ -29,14 +27,14 @@ class descriptionTableViewCell: UITableViewCell {
                 }
                 self.productTitle.text = "\(Text)"
             }
-                Database.database().reference().child("posts").child(NSUUID).child("exchangeWish").observeSingleEvent(of: .value) {(snapshot) in
-                    print(snapshot)
-                    
-                    guard let Text = snapshot.value as? String else { // makes the snapshot a string
-                        return
-                    }
-                    self.exchangeWish.text = "exchange wish: \(Text)"
-    }
+            Database.database().reference().child("posts").child(NSUUID).child("exchangeWish").observeSingleEvent(of: .value) {(snapshot) in
+                print(snapshot)
+                
+                guard let Text = snapshot.value as? String else {
+                    return
+                }
+                self.exchangeWish.text = "exchange wish: \(Text)"
+            }
             Database.database().reference().child("posts").child(NSUUID).child("gender").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -44,7 +42,7 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.gender.text = "\(Text)"
-}
+            }
             Database.database().reference().child("posts").child(NSUUID).child("city").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -52,7 +50,7 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.city.text = "city: \(Text)"
-        }
+            }
             Database.database().reference().child("posts").child(NSUUID).child("color").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -60,15 +58,14 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.color.text = "color: \(Text)"
-        }
+            }
             Database.database().reference().child("posts").child(NSUUID).child("country").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
-                
                 guard let Text = snapshot.value as? String else { // makes the snapshot a string
                     return
                 }
                 self.country.text = "country: \(Text)"
-        }
+            }
             Database.database().reference().child("posts").child(NSUUID).child("productState").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -76,7 +73,7 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.productState.text = "product state: \(Text)"
-        }
+            }
             Database.database().reference().child("posts").child(NSUUID).child("aditionalInformation").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -84,7 +81,7 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.aditionalInformation.text = "aditional information: \(Text)"
-        }
+            }
             Database.database().reference().child("posts").child(NSUUID).child("size").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -92,7 +89,7 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.size.text = "size: \(Text)"
-        }
+            }
             Database.database().reference().child("posts").child(NSUUID).child("articleType").observeSingleEvent(of: .value) {(snapshot) in
                 print(snapshot)
                 
@@ -100,8 +97,8 @@ class descriptionTableViewCell: UITableViewCell {
                     return
                 }
                 self.articleType.text = "Article: \(Text)"
+            }
         }
-    }
     }
     
     let productTitle: UILabel = {
@@ -157,8 +154,6 @@ class descriptionTableViewCell: UITableViewCell {
         return label
     }()
     
-
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(productTitle)
@@ -172,7 +167,7 @@ class descriptionTableViewCell: UITableViewCell {
         contentView.addSubview(productState)
         contentView.addSubview(aditionalInformation)
     }
-
+    
     override func layoutSubviews() {
         let height = contentView.height/20
         productTitle.frame = CGRect(x: 10,
@@ -184,9 +179,9 @@ class descriptionTableViewCell: UITableViewCell {
                                    width: width-20,
                                    height: height)
         gender.frame = CGRect(x: 10,
-                               y: articleType.bottom+10,
-                               width: width-20,
-                               height: height)
+                              y: articleType.bottom+10,
+                              width: width-20,
+                              height: height)
         country.frame = CGRect(x: 10,
                                y: gender.bottom+10,
                                width: width-20,
@@ -195,7 +190,7 @@ class descriptionTableViewCell: UITableViewCell {
                             y: country.bottom+10,
                             width: width-20,
                             height: height)
-    
+        
         size.frame = CGRect(x: 10,
                             y: city.bottom+10,
                             width: width-20,
@@ -216,15 +211,10 @@ class descriptionTableViewCell: UITableViewCell {
                                             y: exchangeWish.bottom+10,
                                             width: width-20,
                                             height: 80)
-        
-        
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-  
 }
 

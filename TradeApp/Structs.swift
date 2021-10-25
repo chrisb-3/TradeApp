@@ -14,7 +14,7 @@ import FirebaseAuth
 struct AppUser {
     let userName: String
     let emailAdress: String
-
+    
     var safeEmail: String {
         var safeEmail = emailAdress.replacingOccurrences(of: ".", with: "_")
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "_")
@@ -63,25 +63,15 @@ public class AuthManager {
     static let shared = AuthManager()
     
     public func logOut(completion: (Bool) -> Void) {
-//        do {
-//            try Auth.auth().signOut()
-//            completion(true)
-//            return
-//        }
-//        catch{
-//            print(error)
-//            completion(false)
-//            return
-//        }
         let firebaseAuth = Auth.auth()
-    do {
-      try firebaseAuth.signOut()
-        completion(true)
-        
-    } catch let signOutError as NSError {
-      print("Error signing out: %@", signOutError)
-        completion(false)
-    }
+        do {
+            try firebaseAuth.signOut()
+            completion(true)
+            
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+            completion(false)
+        }
     }
 }
 
@@ -94,17 +84,14 @@ class Recommend {
     
     var selfId: String!
     var otherId: String!
-    
     var imageId1: String!
     var imageId2: String!
     var poster_emial: String!
     
     init(selfId: String!, otherId: String!, dictionary1: Dictionary<String,AnyObject>, dictionary2: Dictionary<String,AnyObject>) {
-    
-        self.selfId = selfId
-
-        self.otherId = otherId
         
+        self.selfId = selfId
+        self.otherId = otherId
         if let imageId1 = dictionary1["postImageNSUUID"] as? String {
             self.imageId1 = imageId1
         }
@@ -130,16 +117,13 @@ class PostInfo {
     var  size: String!
     var exchangeWish: String!
     var  gender: String!
-    
-    
     var postId: String!
-    
     var postImageNSUUID: String!
     var poster_emial: String!
     
     init(postId: String!, dictionary: Dictionary<String,AnyObject>) {
-    
-    self.postId = postId
+        
+        self.postId = postId
         
         if let aditionalInformation = dictionary["aditionalInformation"] as? String {
             self.aditionalInformation = aditionalInformation
@@ -171,9 +155,6 @@ class PostInfo {
         if let size = dictionary["size"] as? String {
             self.size = size
         }
-//        if let imageUrl = dictionary["imageUrl"] as? URL {
-//            self.imageUrl = imageUrl
-//        }
         if let postImageNSUUID = dictionary["postImageNSUUID"] as? String {
             self.postImageNSUUID = postImageNSUUID
         }
@@ -183,11 +164,8 @@ class PostInfo {
         if let exchangeWish = dictionary["exchangeWish"] as? String {
             self.exchangeWish = exchangeWish
         }
-        
-        
     }
 }
-
 
 class Convo {
     
@@ -200,8 +178,8 @@ class Convo {
     var latestMessage: String!
     
     init(id: String!, dictionary: Dictionary<String,AnyObject>) {
-    
-    self.id = id
+        
+        self.id = id
         
         if let username = dictionary["other_username"] as? String {
             self.username = username
@@ -260,7 +238,7 @@ extension MessageKind {
 }
 
 struct Sender: SenderType {
-   public var photoURL: String
-   public var senderId: String
-   public var displayName: String
+    public var photoURL: String
+    public var senderId: String
+    public var displayName: String
 }
